@@ -645,7 +645,7 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
                 const positions = genMembers.map(m => getCardPosition(m));
                 const minX = Math.min(...positions.map(p => p.x));
                 const maxX = Math.max(...positions.map(p => p.x));
-                // Center the badge above ALL cards in this generation (including all siblings)
+                // Center the badge exactly like Children badge - use same calculation for all generations
                 const centerX = (minX + maxX + CARD_WIDTH) / 2;
                 
                 return (
