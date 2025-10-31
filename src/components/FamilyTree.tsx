@@ -188,21 +188,34 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
   };
 
   // Calculate card positions - responsive sizing
-  const [isMobile, setIsMobile] = useState(false);
+  const [screenSize, setScreenSize] = useState<'mobile' | 'tablet' | 'laptop' | 'desktop'>('desktop');
   
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+    const checkScreenSize = () => {
+      const width = window.innerWidth;
+      if (width < 768) {
+        setScreenSize('mobile');
+      } else if (width < 1024) {
+        setScreenSize('tablet');
+      } else if (width < 1440) {
+        setScreenSize('laptop');
+      } else {
+        setScreenSize('desktop');
+      }
     };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
-  const CARD_WIDTH = isMobile ? 160 : 220;
-  const CARD_HEIGHT = isMobile ? 220 : 280;
-  const HORIZONTAL_GAP = isMobile ? 60 : 120;
-  const VERTICAL_GAP = isMobile ? 140 : 200;
+  const isMobile = screenSize === 'mobile';
+  const isTablet = screenSize === 'tablet';
+  const isLaptop = screenSize === 'laptop';
+  
+  const CARD_WIDTH = isMobile ? 140 : isTablet ? 180 : isLaptop ? 200 : 220;
+  const CARD_HEIGHT = isMobile ? 200 : isTablet ? 240 : isLaptop ? 260 : 280;
+  const HORIZONTAL_GAP = isMobile ? 40 : isTablet ? 80 : isLaptop ? 100 : 120;
+  const VERTICAL_GAP = isMobile ? 120 : isTablet ? 160 : isLaptop ? 180 : 200;
 
   const getCardPosition = (member: FamilyMember): { x: number; y: number } => {
     const gen = member.generation;
@@ -254,9 +267,9 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
             };
           } else {
             // Multiple siblings, arrange horizontally with increased spacing to prevent overlap
-            const branchSpacing = CARD_WIDTH + HORIZONTAL_GAP * 2;
+            const branchSpacing = CARD_WIDTH + HORIZONTAL_GAP * (isMobile ? 1.5 : isTablet ? 1.8 : 2);
             const totalWidth = (siblingCount - 1) * branchSpacing;
-            // Center siblings properly without shifting
+            // Center siblings properly - ensure they span evenly from parents midpoint
             const startX = parentsMidX - totalWidth / 2 - CARD_WIDTH / 2;
             return {
               x: startX + siblingIndex * branchSpacing,
@@ -300,7 +313,7 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
             };
           } else {
             // Increase spacing between children for clear branch visualization
-            const branchSpacing = CARD_WIDTH + HORIZONTAL_GAP * 3;
+            const branchSpacing = CARD_WIDTH + HORIZONTAL_GAP * (isMobile ? 2 : isTablet ? 2.5 : 3);
             const totalWidth = (siblingCount - 1) * branchSpacing;
             // Center children properly without overlap
             const startX = parentsMidX - totalWidth / 2 - CARD_WIDTH / 2;
@@ -316,16 +329,19 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
   };
 
   const generations = [0, 1, 2];
-  // Increase container dimensions to accommodate proper spacing
-  const containerWidth = Math.max(
-    CARD_WIDTH * 4 + HORIZONTAL_GAP * 6, 
-    CARD_WIDTH * 7 + HORIZONTAL_GAP * 10
-  );
+  // Calculate container dimensions based on screen size
+  const maxGen0Width = CARD_WIDTH * 4 + HORIZONTAL_GAP * 5;
+  const maxGen1Width = CARD_WIDTH * 3 + HORIZONTAL_GAP * 4; // Ravi, Bharati, Raghu
+  const maxGen2Width = CARD_WIDTH * 2 + HORIZONTAL_GAP * 3; // Shashank, Shivani
+  const containerWidth = Math.max(maxGen0Width, maxGen1Width, maxGen2Width, CARD_WIDTH * 7 + HORIZONTAL_GAP * 10);
   const containerHeight = (CARD_HEIGHT + VERTICAL_GAP) * 3 + VERTICAL_GAP;
 
+  // Responsive minimum width
+  const minWidth = isMobile ? containerWidth : isTablet ? '1000px' : isLaptop ? '1200px' : '1400px';
+
   return (
-    <div className="w-full overflow-x-auto pb-12 px-4 md:px-6">
-      <div className="relative mx-auto pt-16" style={{ width: `${containerWidth}px`, height: `${containerHeight}px`, minWidth: isMobile ? `${containerWidth}px` : '1400px' }}>
+    <div className="w-full overflow-x-auto pb-12 px-2 sm:px-4 md:px-6">
+      <div className="relative mx-auto pt-12 sm:pt-16" style={{ width: `${containerWidth}px`, height: `${containerHeight}px`, minWidth: minWidth }}>
         {/* SVG for connection lines */}
         <svg 
           className="absolute inset-0 pointer-events-none z-0" 
@@ -620,7 +636,7 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
                 const positions = genMembers.map(m => getCardPosition(m));
                 const minX = Math.min(...positions.map(p => p.x));
                 const maxX = Math.max(...positions.map(p => p.x));
-                // Center the badge above the cards in this generation
+                // Center the badge above ALL cards in this generation (including all siblings)
                 const centerX = (minX + maxX + CARD_WIDTH) / 2;
                 
                 return (
