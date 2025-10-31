@@ -38,7 +38,7 @@ export default function Home() {
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto px-2 md:px-6 py-6 md:py-12">
+      <main className="w-full px-2 md:px-6 py-6 md:py-12">
         <FamilyTree 
           darkMode={darkMode} 
           searchQuery=""

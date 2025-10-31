@@ -329,19 +329,23 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
   };
 
   const generations = [0, 1, 2];
-  // Calculate container dimensions based on screen size
-  const maxGen0Width = CARD_WIDTH * 4 + HORIZONTAL_GAP * 5;
-  const maxGen1Width = CARD_WIDTH * 3 + HORIZONTAL_GAP * 4; // Ravi, Bharati, Raghu
-  const maxGen2Width = CARD_WIDTH * 2 + HORIZONTAL_GAP * 3; // Shashank, Shivani
-  const containerWidth = Math.max(maxGen0Width, maxGen1Width, maxGen2Width, CARD_WIDTH * 7 + HORIZONTAL_GAP * 10);
-  const containerHeight = (CARD_HEIGHT + VERTICAL_GAP) * 3 + VERTICAL_GAP;
-
-  // Responsive minimum width
-  const minWidth = isMobile ? containerWidth : isTablet ? '1000px' : isLaptop ? '1200px' : '1400px';
+  // Calculate container dimensions - ensure all cards are fully visible with extra padding
+  // Generation 0: 4 cards (2 couples side by side)
+  const gen0Width = (CARD_WIDTH * 2 + HORIZONTAL_GAP) * 2 + HORIZONTAL_GAP * 2;
+  // Generation 1: 3 cards (Ravi, Bharati, Raghu) - calculate actual spread
+  const gen1Cards = filteredData.filter(m => m.generation === 1);
+  const gen1Positions = gen1Cards.map(m => getCardPosition(m));
+  const gen1Width = gen1Positions.length > 0 ? Math.max(...gen1Positions.map(p => p.x)) - Math.min(...gen1Positions.map(p => p.x)) + CARD_WIDTH : CARD_WIDTH * 3 + HORIZONTAL_GAP * 4;
+  // Generation 2: 2 cards
+  const gen2Width = CARD_WIDTH * 2 + HORIZONTAL_GAP * 3;
+  
+  // Use the maximum width needed, with extra padding on both sides
+  const containerWidth = Math.max(gen0Width, gen1Width, gen2Width) + (HORIZONTAL_GAP * 4);
+  const containerHeight = (CARD_HEIGHT + VERTICAL_GAP) * 3 + VERTICAL_GAP + (VERTICAL_GAP * 0.5);
 
   return (
-    <div className="w-full overflow-x-auto pb-12 px-2 sm:px-4 md:px-6">
-      <div className="relative mx-auto pt-12 sm:pt-16" style={{ width: `${containerWidth}px`, height: `${containerHeight}px`, minWidth: minWidth }}>
+    <div className="w-full overflow-x-auto overflow-y-visible pb-12">
+      <div className="relative pt-12 sm:pt-16" style={{ width: `${containerWidth}px`, height: `${containerHeight}px`, margin: '0 auto' }}>
         {/* SVG for connection lines */}
         <svg 
           className="absolute inset-0 pointer-events-none z-0" 
