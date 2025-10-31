@@ -253,10 +253,11 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
               y: CARD_HEIGHT + VERTICAL_GAP
             };
           } else {
-            // Multiple siblings, arrange horizontally
-            const branchSpacing = CARD_WIDTH + HORIZONTAL_GAP;
+            // Multiple siblings, arrange horizontally with more spacing
+            const branchSpacing = CARD_WIDTH + HORIZONTAL_GAP * 1.5;
             const totalWidth = (siblingCount - 1) * branchSpacing;
-            const startX = parentsMidX - totalWidth / 2 - CARD_WIDTH / 2;
+            // Shift siblings more to the right
+            const startX = parentsMidX - totalWidth / 2 - CARD_WIDTH / 2 + HORIZONTAL_GAP * 0.5;
             return {
               x: startX + siblingIndex * branchSpacing,
               y: CARD_HEIGHT + VERTICAL_GAP
@@ -298,10 +299,11 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
               y: (CARD_HEIGHT + VERTICAL_GAP) * 2
             };
           } else {
-            // Increase spacing between children for clear branch visualization
-            const branchSpacing = CARD_WIDTH + HORIZONTAL_GAP * 2;
+            // Increase spacing between children for clear branch visualization and shift right
+            const branchSpacing = CARD_WIDTH + HORIZONTAL_GAP * 2.5;
             const totalWidth = (siblingCount - 1) * branchSpacing;
-            const startX = parentsMidX - totalWidth / 2 - CARD_WIDTH / 2;
+            // Shift children more to the right to prevent overlap
+            const startX = parentsMidX - totalWidth / 2 - CARD_WIDTH / 2 + HORIZONTAL_GAP;
             return {
               x: startX + childIndex * branchSpacing,
               y: (CARD_HEIGHT + VERTICAL_GAP) * 2
@@ -314,8 +316,8 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
   };
 
   const generations = [0, 1, 2];
-  // Update container width to accommodate Raghu in generation 1
-  const containerWidth = Math.max(CARD_WIDTH * 4 + HORIZONTAL_GAP * 5, CARD_WIDTH * 5 + HORIZONTAL_GAP * 6);
+  // Update container width to accommodate Raghu in generation 1 and shifted children
+  const containerWidth = Math.max(CARD_WIDTH * 4 + HORIZONTAL_GAP * 5, CARD_WIDTH * 6 + HORIZONTAL_GAP * 8);
   const containerHeight = (CARD_HEIGHT + VERTICAL_GAP) * 3;
 
   return (
@@ -509,23 +511,92 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
                       </g>
                     );
                   } else {
-                    // For generation 1, keep direct connection
-                    return (
-                      <g key={`child-${member.id}`}>
-                        <motion.line
-                          x1={parentMidX}
-                          y1={parentY}
-                          x2={childX}
-                          y2={childY}
-                          stroke={darkMode ? (isHighlighted ? '#a3b18a' : '#374151') : (isHighlighted ? '#a3b18a' : '#d0d5dd')}
-                          strokeWidth={isHighlighted ? 3 : 2}
-                          initial={{ pathLength: 0, opacity: 0 }}
-                          animate={{ pathLength: 1, opacity: 1 }}
-                          transition={{ duration: 1, delay: member.generation * 0.3 + 0.3 }}
-                          filter={isHighlighted ? 'url(#glow)' : undefined}
-                        />
-                      </g>
-                    );
+                    // For generation 1, create branching structure for siblings
+                    const siblings = familyData
+                      .filter(m => 
+                        m.generation === 1 && 
+                        m.parents && 
+                        m.parents[0] === member.parents![0] && 
+                        m.parents[1] === member.parents![1]
+                      )
+                      .sort((a, b) => {
+                        // Sort by birth year descending (younger siblings appear first/left)
+                        const yearA = parseInt(a.birth) || 0;
+                        const yearB = parseInt(b.birth) || 0;
+                        return yearB - yearA;
+                      });
+                    const siblingIndex = siblings.findIndex(s => s.id === member.id);
+                    
+                    if (siblings.length > 1) {
+                      // Multiple siblings - use branching like generation 2
+                      const branchY = parentY + 40;
+                      
+                      return (
+                        <g key={`child-${member.id}`}>
+                          {/* Main vertical line from parents down */}
+                          {siblingIndex === 0 && (
+                            <motion.line
+                              x1={parentMidX}
+                              y1={parentY}
+                              x2={parentMidX}
+                              y2={branchY}
+                              stroke={darkMode ? (isHighlighted ? '#a3b18a' : '#374151') : (isHighlighted ? '#a3b18a' : '#d0d5dd')}
+                              strokeWidth={isHighlighted ? 3 : 2}
+                              initial={{ pathLength: 0, opacity: 0 }}
+                              animate={{ pathLength: 1, opacity: 1 }}
+                              transition={{ duration: 0.6, delay: 0.8 }}
+                              filter={isHighlighted ? 'url(#glow)' : undefined}
+                            />
+                          )}
+                          
+                          {/* Horizontal branch line */}
+                          <motion.line
+                            x1={parentMidX}
+                            y1={branchY}
+                            x2={childX}
+                            y2={branchY}
+                            stroke={darkMode ? (isHighlighted ? '#a3b18a' : '#374151') : (isHighlighted ? '#a3b18a' : '#d0d5dd')}
+                            strokeWidth={isHighlighted ? 3 : 2}
+                            initial={{ pathLength: 0, opacity: 0 }}
+                            animate={{ pathLength: 1, opacity: 1 }}
+                            transition={{ duration: 0.6, delay: 0.8 + siblingIndex * 0.15 }}
+                            filter={isHighlighted ? 'url(#glow)' : undefined}
+                          />
+                          
+                          {/* Vertical line down to child */}
+                          <motion.line
+                            x1={childX}
+                            y1={branchY}
+                            x2={childX}
+                            y2={childY}
+                            stroke={darkMode ? (isHighlighted ? '#a3b18a' : '#374151') : (isHighlighted ? '#a3b18a' : '#d0d5dd')}
+                            strokeWidth={isHighlighted ? 3 : 2}
+                            initial={{ pathLength: 0, opacity: 0 }}
+                            animate={{ pathLength: 1, opacity: 1 }}
+                            transition={{ duration: 0.6, delay: 0.8 + siblingIndex * 0.15 + 0.15 }}
+                            filter={isHighlighted ? 'url(#glow)' : undefined}
+                          />
+                        </g>
+                      );
+                    } else {
+                      // Single child - direct connection
+                      return (
+                        <g key={`child-${member.id}`}>
+                          <motion.line
+                            x1={parentMidX}
+                            y1={parentY}
+                            x2={childX}
+                            y2={childY}
+                            stroke={darkMode ? (isHighlighted ? '#a3b18a' : '#374151') : (isHighlighted ? '#a3b18a' : '#d0d5dd')}
+                            strokeWidth={isHighlighted ? 3 : 2}
+                            initial={{ pathLength: 0, opacity: 0 }}
+                            animate={{ pathLength: 1, opacity: 1 }}
+                            transition={{ duration: 1, delay: member.generation * 0.3 + 0.3 }}
+                            filter={isHighlighted ? 'url(#glow)' : undefined}
+                          />
+                        </g>
+                      );
+                    }
                   }
                 }
               }
@@ -546,7 +617,8 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
                 const positions = genMembers.map(m => getCardPosition(m));
                 const minX = Math.min(...positions.map(p => p.x));
                 const maxX = Math.max(...positions.map(p => p.x));
-                const centerX = (minX + maxX) / 2 + CARD_WIDTH / 2;
+                // Shift badge more to the right
+                const centerX = (minX + maxX) / 2 + CARD_WIDTH / 2 + (gen > 0 ? HORIZONTAL_GAP * 0.5 : 0);
                 
                 return (
                   <motion.div
