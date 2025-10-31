@@ -477,31 +477,50 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
                   
                   const isHighlighted = isInHoveredLineage(member.id);
 
-                  // For generation 2 (children), create branching structure
+                  // For generation 2 (children), create branching structure with Bézier curves
                   if (member.generation === 2) {
-                    // Get siblings to determine branch direction
-                    const siblings = familyData.filter(m => 
-                      m.generation === 2 && 
-                      m.parents && 
-                      m.parents[0] === member.parents![0] && 
-                      m.parents[1] === member.parents![1]
-                    );
+                    // Get siblings to determine branch direction and offsets
+                    const siblings = familyData
+                      .filter(m => 
+                        m.generation === 2 && 
+                        m.parents && 
+                        m.parents[0] === member.parents![0] && 
+                        m.parents[1] === member.parents![1]
+                      )
+                      .sort((a, b) => {
+                        const posA = getCardPosition(a);
+                        const posB = getCardPosition(b);
+                        return posA.x - posB.x; // Sort by X position
+                      });
                     const siblingIndex = siblings.findIndex(s => s.id === member.id);
+                    const siblingCount = siblings.length;
                     
-                    // Create a horizontal branching point
-                    const branchY = parentY + (VERTICAL_GAP * 0.25);
+                    // Create branching point with increased vertical offsets to prevent overlap
+                    const baseBranchY = parentY + (VERTICAL_GAP * 0.25);
+                    // Increased separation: 30px per sibling (was 20px) for better visual separation
+                    const branchYOffset = (siblingIndex - (siblingCount - 1) / 2) * 30;
+                    const branchY = baseBranchY + branchYOffset;
+                    
+                    // Control points for smooth cubic Bézier curves
+                    const verticalSegment = VERTICAL_GAP * 0.2;
+                    // Horizontal offset varies by sibling position to prevent intersection
+                    const horizontalOffset = 20 + (siblingIndex * 5); // Base 20px + 5px per sibling
+                    const horizontalControlOffset = (childX > parentMidX ? horizontalOffset : -horizontalOffset);
+                    
+                    // Calculate mid-point for curve
+                    const midX = (parentMidX + childX) / 2;
+                    const midY = branchY;
                     
                     return (
                       <g key={`child-${member.id}`}>
-                        {/* Main vertical line from parents down */}
+                        {/* Main vertical line from parents down - only for first sibling */}
                         {siblingIndex === 0 && (
-                          <motion.line
-                            x1={parentMidX}
-                            y1={parentY}
-                            x2={parentMidX}
-                            y2={branchY}
+                          <motion.path
+                            d={`M ${parentMidX} ${parentY} L ${parentMidX} ${baseBranchY}`}
+                            fill="none"
                             stroke={darkMode ? (isHighlighted ? '#a3b18a' : '#374151') : (isHighlighted ? '#a3b18a' : '#d0d5dd')}
-                            strokeWidth={isHighlighted ? 3 : 2}
+                            strokeWidth={2}
+                            strokeLinecap="round"
                             initial={{ pathLength: 0, opacity: 0 }}
                             animate={{ pathLength: 1, opacity: 1 }}
                             transition={{ duration: 0.6, delay: 1.2 }}
@@ -509,28 +528,26 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
                           />
                         )}
                         
-                        {/* Horizontal branch line */}
-                        <motion.line
-                          x1={parentMidX}
-                          y1={branchY}
-                          x2={childX}
-                          y2={branchY}
+                        {/* Horizontal branch with smooth cubic Bézier curve */}
+                        <motion.path
+                          d={`M ${parentMidX} ${branchY} C ${parentMidX + horizontalControlOffset * 0.3} ${branchY}, ${midX - horizontalControlOffset * 0.3} ${midY}, ${midX} ${midY} C ${midX + horizontalControlOffset * 0.3} ${midY}, ${childX - horizontalControlOffset * 0.3} ${branchY}, ${childX} ${branchY}`}
+                          fill="none"
                           stroke={darkMode ? (isHighlighted ? '#a3b18a' : '#374151') : (isHighlighted ? '#a3b18a' : '#d0d5dd')}
-                          strokeWidth={isHighlighted ? 3 : 2}
+                          strokeWidth={2}
+                          strokeLinecap="round"
                           initial={{ pathLength: 0, opacity: 0 }}
                           animate={{ pathLength: 1, opacity: 1 }}
                           transition={{ duration: 0.6, delay: 1.2 + siblingIndex * 0.15 }}
                           filter={isHighlighted ? 'url(#glow)' : undefined}
                         />
                         
-                        {/* Vertical line down to child */}
-                        <motion.line
-                          x1={childX}
-                          y1={branchY}
-                          x2={childX}
-                          y2={childY}
+                        {/* Vertical line down to child with smooth cubic Bézier curve */}
+                        <motion.path
+                          d={`M ${childX} ${branchY} C ${childX} ${branchY + verticalSegment * 0.5}, ${childX} ${childY - verticalSegment * 0.5}, ${childX} ${childY}`}
+                          fill="none"
                           stroke={darkMode ? (isHighlighted ? '#a3b18a' : '#374151') : (isHighlighted ? '#a3b18a' : '#d0d5dd')}
-                          strokeWidth={isHighlighted ? 3 : 2}
+                          strokeWidth={2}
+                          strokeLinecap="round"
                           initial={{ pathLength: 0, opacity: 0 }}
                           animate={{ pathLength: 1, opacity: 1 }}
                           transition={{ duration: 0.6, delay: 1.2 + siblingIndex * 0.15 + 0.15 }}
@@ -539,7 +556,7 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
                       </g>
                     );
                   } else {
-                    // For generation 1, create branching structure for siblings
+                    // For generation 1, create branching structure with Bézier curves for siblings
                     const siblings = familyData
                       .filter(m => 
                         m.generation === 1 && 
@@ -552,24 +569,43 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
                         const yearA = parseInt(a.birth) || 0;
                         const yearB = parseInt(b.birth) || 0;
                         return yearB - yearA;
+                      })
+                      .sort((a, b) => {
+                        // Secondary sort by X position for consistent ordering
+                        const posA = getCardPosition(a);
+                        const posB = getCardPosition(b);
+                        return posA.x - posB.x;
                       });
                     const siblingIndex = siblings.findIndex(s => s.id === member.id);
+                    const siblingCount = siblings.length;
                     
-                    if (siblings.length > 1) {
-                      // Multiple siblings - use branching like generation 2
-                      const branchY = parentY + (VERTICAL_GAP * 0.25);
+                    if (siblingCount > 1) {
+                      // Multiple siblings - use branching with Bézier curves and increased vertical offsets
+                      const baseBranchY = parentY + (VERTICAL_GAP * 0.25);
+                      // Increased separation: 30px per sibling (was 20px) for better visual separation
+                      const branchYOffset = (siblingIndex - (siblingCount - 1) / 2) * 30;
+                      const branchY = baseBranchY + branchYOffset;
+                      
+                      // Control points for smooth cubic Bézier curves
+                      const verticalSegment = VERTICAL_GAP * 0.2;
+                      // Horizontal offset varies by sibling position to prevent intersection
+                      const horizontalOffset = 20 + (siblingIndex * 5); // Base 20px + 5px per sibling
+                      const horizontalControlOffset = (childX > parentMidX ? horizontalOffset : -horizontalOffset);
+                      
+                      // Calculate mid-point for curve
+                      const midX = (parentMidX + childX) / 2;
+                      const midY = branchY;
                       
                       return (
                         <g key={`child-${member.id}`}>
-                          {/* Main vertical line from parents down */}
+                          {/* Main vertical line from parents down - only for first sibling */}
                           {siblingIndex === 0 && (
-                            <motion.line
-                              x1={parentMidX}
-                              y1={parentY}
-                              x2={parentMidX}
-                              y2={branchY}
+                            <motion.path
+                              d={`M ${parentMidX} ${parentY} L ${parentMidX} ${baseBranchY}`}
+                              fill="none"
                               stroke={darkMode ? (isHighlighted ? '#a3b18a' : '#374151') : (isHighlighted ? '#a3b18a' : '#d0d5dd')}
-                              strokeWidth={isHighlighted ? 3 : 2}
+                              strokeWidth={2}
+                              strokeLinecap="round"
                               initial={{ pathLength: 0, opacity: 0 }}
                               animate={{ pathLength: 1, opacity: 1 }}
                               transition={{ duration: 0.6, delay: 0.8 }}
@@ -577,28 +613,26 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
                             />
                           )}
                           
-                          {/* Horizontal branch line */}
-                          <motion.line
-                            x1={parentMidX}
-                            y1={branchY}
-                            x2={childX}
-                            y2={branchY}
+                          {/* Horizontal branch with smooth cubic Bézier curve */}
+                          <motion.path
+                            d={`M ${parentMidX} ${branchY} C ${parentMidX + horizontalControlOffset * 0.3} ${branchY}, ${midX - horizontalControlOffset * 0.3} ${midY}, ${midX} ${midY} C ${midX + horizontalControlOffset * 0.3} ${midY}, ${childX - horizontalControlOffset * 0.3} ${branchY}, ${childX} ${branchY}`}
+                            fill="none"
                             stroke={darkMode ? (isHighlighted ? '#a3b18a' : '#374151') : (isHighlighted ? '#a3b18a' : '#d0d5dd')}
-                            strokeWidth={isHighlighted ? 3 : 2}
+                            strokeWidth={2}
+                            strokeLinecap="round"
                             initial={{ pathLength: 0, opacity: 0 }}
                             animate={{ pathLength: 1, opacity: 1 }}
                             transition={{ duration: 0.6, delay: 0.8 + siblingIndex * 0.15 }}
                             filter={isHighlighted ? 'url(#glow)' : undefined}
                           />
                           
-                          {/* Vertical line down to child */}
-                          <motion.line
-                            x1={childX}
-                            y1={branchY}
-                            x2={childX}
-                            y2={childY}
+                          {/* Vertical line down to child with smooth cubic Bézier curve */}
+                          <motion.path
+                            d={`M ${childX} ${branchY} C ${childX} ${branchY + verticalSegment * 0.5}, ${childX} ${childY - verticalSegment * 0.5}, ${childX} ${childY}`}
+                            fill="none"
                             stroke={darkMode ? (isHighlighted ? '#a3b18a' : '#374151') : (isHighlighted ? '#a3b18a' : '#d0d5dd')}
-                            strokeWidth={isHighlighted ? 3 : 2}
+                            strokeWidth={2}
+                            strokeLinecap="round"
                             initial={{ pathLength: 0, opacity: 0 }}
                             animate={{ pathLength: 1, opacity: 1 }}
                             transition={{ duration: 0.6, delay: 0.8 + siblingIndex * 0.15 + 0.15 }}
@@ -607,16 +641,18 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
                         </g>
                       );
                     } else {
-                      // Single child - direct connection
+                      // Single child - direct connection with smooth cubic Bézier curve
+                      const midY = (parentY + childY) / 2;
+                      const curveOffset = 30; // Increased curve control point offset for smoother curves
+                      
                       return (
                         <g key={`child-${member.id}`}>
-                          <motion.line
-                            x1={parentMidX}
-                            y1={parentY}
-                            x2={childX}
-                            y2={childY}
+                          <motion.path
+                            d={`M ${parentMidX} ${parentY} C ${parentMidX} ${midY - curveOffset}, ${childX} ${midY - curveOffset}, ${childX} ${childY}`}
+                            fill="none"
                             stroke={darkMode ? (isHighlighted ? '#a3b18a' : '#374151') : (isHighlighted ? '#a3b18a' : '#d0d5dd')}
-                            strokeWidth={isHighlighted ? 3 : 2}
+                            strokeWidth={2}
+                            strokeLinecap="round"
                             initial={{ pathLength: 0, opacity: 0 }}
                             animate={{ pathLength: 1, opacity: 1 }}
                             transition={{ duration: 1, delay: member.generation * 0.3 + 0.3 }}
