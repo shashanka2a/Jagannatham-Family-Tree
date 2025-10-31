@@ -74,6 +74,16 @@ const familyStories: { [key: string]: any } = {
     story: 'With a passion for the arts and education, she has inspired many through her work and dedication. Her home is a gathering place where culture and learning flourish.',
     legacy: 'Advocates for education and women\'s empowerment'
   },
+  '9': {
+    name: 'Jagannatham Raghu Chander',
+    fullName: 'Jagannatham Raghu Chander',
+    role: 'Uncle',
+    birth: '1972',
+    bio: 'A dedicated professional and loving brother who values family connections and heritage.',
+    photo: '/raghu.jpg',
+    story: 'The younger brother of Ravi Chander, Raghu has always been a pillar of support for the family. His commitment to maintaining family traditions while embracing new opportunities has made him a beloved uncle and role model.',
+    legacy: 'Strengthens family bonds across generations'
+  },
   '7': {
     name: 'Jagannatham Shashank',
     fullName: 'Jagannatham Shashank',

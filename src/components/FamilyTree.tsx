@@ -98,6 +98,18 @@ const familyData: FamilyMember[] = [
     bio: 'A nurturing presence who brings creativity and compassion to every aspect of life.',
     photo: '/bharathi.JPEG'
   },
+  {
+    id: '9',
+    name: 'Jagannatham Raghu Chander',
+    fullName: 'Jagannatham Raghu Chander',
+    role: 'Uncle',
+    birth: '1972',
+    generation: 1,
+    position: 2,
+    parents: ['1', '2'],
+    bio: 'A dedicated professional and loving brother who values family connections and heritage.',
+    photo: '/raghu.jpg'
+  },
   // Generation 2 - Children
   {
     id: '7',
@@ -206,7 +218,53 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
         y: 0
       };
     } else if (gen === 1) {
-      // Parents: centered under their respective couples
+      // Generation 1: Position based on parents and siblings
+      if (member.parents && member.parents.length >= 2) {
+        const parent1 = familyData.find(m => m.id === member.parents![0]);
+        const parent2 = familyData.find(m => m.id === member.parents![1]);
+        
+        if (parent1 && parent2) {
+          const parent1Pos = getCardPosition(parent1);
+          const parent2Pos = getCardPosition(parent2);
+          const parentsMidX = (parent1Pos.x + parent2Pos.x + CARD_WIDTH) / 2;
+          
+          // Get siblings (same parents) and sort by birth year
+          const siblings = familyData
+            .filter(m => 
+              m.generation === gen && 
+              m.parents && 
+              m.parents[0] === member.parents![0] && 
+              m.parents[1] === member.parents![1]
+            )
+            .sort((a, b) => {
+              // Sort by birth year if available
+              const yearA = parseInt(a.birth) || 0;
+              const yearB = parseInt(b.birth) || 0;
+              return yearA - yearB;
+            });
+          
+          const siblingIndex = siblings.findIndex(s => s.id === member.id);
+          const siblingCount = siblings.length;
+          
+          if (siblingCount === 1) {
+            // Single child, center under parents
+            return {
+              x: parentsMidX - CARD_WIDTH / 2,
+              y: CARD_HEIGHT + VERTICAL_GAP
+            };
+          } else {
+            // Multiple siblings, arrange horizontally
+            const branchSpacing = CARD_WIDTH + HORIZONTAL_GAP;
+            const totalWidth = (siblingCount - 1) * branchSpacing;
+            const startX = parentsMidX - totalWidth / 2 - CARD_WIDTH / 2;
+            return {
+              x: startX + siblingIndex * branchSpacing,
+              y: CARD_HEIGHT + VERTICAL_GAP
+            };
+          }
+        }
+      }
+      // Fallback: use old positioning logic
       const parentCoupleX = pos * (CARD_WIDTH * 2 + HORIZONTAL_GAP * 3) + (CARD_WIDTH + HORIZONTAL_GAP) / 2;
       return {
         x: parentCoupleX,
@@ -256,7 +314,8 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
   };
 
   const generations = [0, 1, 2];
-  const containerWidth = CARD_WIDTH * 4 + HORIZONTAL_GAP * 5;
+  // Update container width to accommodate Raghu in generation 1
+  const containerWidth = Math.max(CARD_WIDTH * 4 + HORIZONTAL_GAP * 5, CARD_WIDTH * 5 + HORIZONTAL_GAP * 6);
   const containerHeight = (CARD_HEIGHT + VERTICAL_GAP) * 3;
 
   return (
@@ -368,7 +427,7 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
               });
           })}
 
-          {/* Draw parent-child connections */}
+          {/* Draw parent-child connections (for generation 1 and 2) */}
           {filteredData
             .filter(m => m.generation > 0 && m.parents)
             .map(member => {
