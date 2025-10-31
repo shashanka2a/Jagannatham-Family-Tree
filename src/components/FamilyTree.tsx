@@ -226,8 +226,10 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
       // Couple 1: positions 0,1 | Couple 2: positions 2,3
       const coupleOffset = Math.floor(pos / 2);
       const withinCouple = pos % 2;
+      // Add horizontal padding offset to ensure cards don't get cut off
+      const paddingOffset = HORIZONTAL_GAP * 2;
       return {
-        x: coupleOffset * (CARD_WIDTH * 2 + HORIZONTAL_GAP * 3) + withinCouple * (CARD_WIDTH + HORIZONTAL_GAP),
+        x: paddingOffset + coupleOffset * (CARD_WIDTH * 2 + HORIZONTAL_GAP * 3) + withinCouple * (CARD_WIDTH + HORIZONTAL_GAP),
         y: 0
       };
     } else if (gen === 1) {
@@ -278,8 +280,9 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
           }
         }
       }
-      // Fallback: use old positioning logic
-      const parentCoupleX = pos * (CARD_WIDTH * 2 + HORIZONTAL_GAP * 3) + (CARD_WIDTH + HORIZONTAL_GAP) / 2;
+      // Fallback: use old positioning logic with padding offset
+      const paddingOffset = HORIZONTAL_GAP * 2;
+      const parentCoupleX = paddingOffset + pos * (CARD_WIDTH * 2 + HORIZONTAL_GAP * 3) + (CARD_WIDTH + HORIZONTAL_GAP) / 2;
       return {
         x: parentCoupleX,
         y: CARD_HEIGHT + VERTICAL_GAP
@@ -330,17 +333,19 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
 
   const generations = [0, 1, 2];
   // Calculate container dimensions - ensure all cards are fully visible with extra padding
-  // Generation 0: 4 cards (2 couples side by side)
-  const gen0Width = (CARD_WIDTH * 2 + HORIZONTAL_GAP) * 2 + HORIZONTAL_GAP * 2;
-  // Generation 1: 3 cards (Ravi, Bharati, Raghu) - calculate actual spread
-  const gen1Cards = filteredData.filter(m => m.generation === 1);
-  const gen1Positions = gen1Cards.map(m => getCardPosition(m));
-  const gen1Width = gen1Positions.length > 0 ? Math.max(...gen1Positions.map(p => p.x)) - Math.min(...gen1Positions.map(p => p.x)) + CARD_WIDTH : CARD_WIDTH * 3 + HORIZONTAL_GAP * 4;
+  // Generation 0: 4 cards (2 couples side by side) - includes padding offset
+  const paddingOffset = HORIZONTAL_GAP * 2;
+  const gen0Width = paddingOffset * 2 + (CARD_WIDTH * 2 + HORIZONTAL_GAP) * 2 + HORIZONTAL_GAP * 2;
+  // Generation 1: 3 cards (Ravi, Bharati, Raghu) - estimate width based on sibling spacing
+  // Raghu and Ravi are siblings, Bharati is separate
+  // Estimate: max width from siblings (Ravi+Raghu spread) or individual card positions
+  const gen1SiblingWidth = CARD_WIDTH * 2 + HORIZONTAL_GAP * (isMobile ? 1.5 : isTablet ? 1.8 : 2); // Raghu + Ravi
+  const gen1TotalWidth = Math.max(gen1SiblingWidth, CARD_WIDTH * 3 + HORIZONTAL_GAP * 4); // Account for all 3
   // Generation 2: 2 cards
-  const gen2Width = CARD_WIDTH * 2 + HORIZONTAL_GAP * 3;
+  const gen2Width = CARD_WIDTH * 2 + HORIZONTAL_GAP * (isMobile ? 2 : isTablet ? 2.5 : 3);
   
-  // Use the maximum width needed, with extra padding on both sides
-  const containerWidth = Math.max(gen0Width, gen1Width, gen2Width) + (HORIZONTAL_GAP * 4);
+  // Use the maximum width needed, with generous padding on both sides to prevent clipping
+  const containerWidth = Math.max(gen0Width, gen1TotalWidth, gen2Width) + (HORIZONTAL_GAP * 6);
   const containerHeight = (CARD_HEIGHT + VERTICAL_GAP) * 3 + VERTICAL_GAP + (VERTICAL_GAP * 0.5);
 
   return (
