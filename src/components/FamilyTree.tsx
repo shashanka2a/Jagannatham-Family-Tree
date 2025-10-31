@@ -648,6 +648,10 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
                 // Center the badge exactly like Children badge - use same calculation for all generations
                 const centerX = (minX + maxX + CARD_WIDTH) / 2;
                 
+                // Calculate top position based on actual card positions (same as Children badge)
+                const minY = Math.min(...positions.map(p => p.y));
+                const badgeTop = minY - 50; // 50px above the top of the cards
+                
                 return (
                   <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
@@ -660,7 +664,7 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
                     }`}
                     style={{ 
                       left: `${centerX}px`,
-                      top: `${gen === 0 ? -50 : gen === 1 ? CARD_HEIGHT + VERTICAL_GAP - 50 : (CARD_HEIGHT + VERTICAL_GAP) * 2 - 50}px`,
+                      top: `${badgeTop}px`,
                       zIndex: 20
                     }}
                   >
