@@ -19,7 +19,7 @@ const familyStories: { [key: string]: any } = {
     birth: '?',
     death: '2008',
     bio: 'A wise patriarch who laid the foundation for our family values. Known for his dedication to education and community service, he believed in the power of knowledge to transform lives.',
-    photo: 'https://images.unsplash.com/photo-1602138038255-fd72c20ab750?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&h=400&fit=crop',
+    photo: '/subhash.JPEG',
     story: 'He spent his life working in education, touching countless lives through his teaching. His evenings were dedicated to community gatherings where he would share stories and wisdom with younger generations.',
     legacy: 'Established a scholarship fund for underprivileged students'
   },
@@ -29,7 +29,7 @@ const familyStories: { [key: string]: any } = {
     role: 'Grandmother',
     birth: '?',
     bio: 'A loving matriarch known for her warmth and traditional wisdom.',
-    photo: 'https://images.unsplash.com/photo-1622461828050-c47d16bd89ca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&h=400&fit=crop',
+    photo: '/laxmi.JPEG',
     story: 'She was the heart of the family, known for bringing everyone together during festivals and celebrations. Her recipes and stories have been passed down through generations.',
     legacy: 'Keeper of family traditions and cultural heritage'
   },
@@ -40,7 +40,7 @@ const familyStories: { [key: string]: any } = {
     birth: '?',
     death: '1978',
     bio: 'A distinguished gentleman remembered for his integrity and dedication.',
-    photo: 'https://images.unsplash.com/photo-1602138038255-fd72c20ab750?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&h=400&fit=crop',
+    photo: '/laxman.JPEG',
     story: 'A man of principles who served his community with distinction. His commitment to honesty and hard work set an example for all who knew him.',
     legacy: 'Built the family home that still stands today'
   },
@@ -50,7 +50,7 @@ const familyStories: { [key: string]: any } = {
     role: 'Grandmother',
     birth: '?',
     bio: 'A graceful woman who brought joy and stability to the family.',
-    photo: 'https://images.unsplash.com/photo-1622461828050-c47d16bd89ca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&h=400&fit=crop',
+    photo: '/urmila.JPEG',
     story: 'Known for her artistic talents and gentle nature, she created a warm home filled with love and creativity. Her handcrafted items are still treasured family heirlooms.',
     legacy: 'Created beautiful textiles that remain family treasures'
   },
@@ -60,7 +60,7 @@ const familyStories: { [key: string]: any } = {
     role: 'Father',
     birth: '1969',
     bio: 'An accomplished professional and devoted family man who bridges tradition with modernity.',
-    photo: 'https://images.unsplash.com/photo-1664101606938-e664f5852fac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&h=400&fit=crop',
+    photo: '/ravi.JPEG',
     story: 'He has successfully blended traditional values with modern thinking, creating a nurturing environment for the next generation while honoring the wisdom of ancestors.',
     legacy: 'Modernized family business while preserving core values'
   },
@@ -70,7 +70,7 @@ const familyStories: { [key: string]: any } = {
     role: 'Mother',
     birth: '1976',
     bio: 'A nurturing presence who brings creativity and compassion to every aspect of life.',
-    photo: 'https://images.unsplash.com/photo-1749189516333-168cfd97de0b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&h=400&fit=crop',
+    photo: '/bharathi.JPEG',
     story: 'With a passion for the arts and education, she has inspired many through her work and dedication. Her home is a gathering place where culture and learning flourish.',
     legacy: 'Advocates for education and women\'s empowerment'
   },
@@ -80,7 +80,7 @@ const familyStories: { [key: string]: any } = {
     role: 'Son',
     birth: '2000',
     bio: 'A bright young individual pursuing dreams while honoring family heritage.',
-    photo: 'https://images.unsplash.com/photo-1648577739099-f1e18f8563f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&h=400&fit=crop',
+    photo: '/shashank.jpg',
     story: 'The newest generation carries forward the family legacy with fresh perspectives and energy, while staying rooted in the values taught by previous generations.',
     legacy: 'Building the future while honoring the past'
   },
@@ -90,7 +90,7 @@ const familyStories: { [key: string]: any } = {
     role: 'Daughter',
     birth: '2002',
     bio: 'A talented and creative individual with a passion for making a difference.',
-    photo: 'https://images.unsplash.com/photo-1761125050322-bbfc155571bd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&h=400&fit=crop',
+    photo: '/shivani.jpg',
     story: 'Bringing innovation and compassion to everything she does, she represents the bright future of the family. Her artistic talents and drive for positive change inspire those around her.',
     legacy: 'Pioneering new paths while cherishing family roots'
   }

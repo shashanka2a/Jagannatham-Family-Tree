@@ -9,6 +9,10 @@ export const metadata: Metadata = {
   description: 'Interactive family tree for the Jagannatham family. Explore your ancestral lineage, discover family stories, and connect with your heritage.',
   keywords: ['family tree', 'genealogy', 'Jagannatham', 'ancestry', 'family history'],
   authors: [{ name: 'Jagannatham Family' }],
+  icons: {
+    icon: '/favicon.svg',
+    apple: '/favicon.svg',
+  },
   openGraph: {
     title: 'Jagannatham Family Tree',
     description: 'Explore your ancestral lineage and discover family stories',

@@ -37,7 +37,7 @@ const familyData: FamilyMember[] = [
     generation: 0,
     position: 0,
     bio: 'A wise patriarch who laid the foundation for our family values.',
-    photo: 'https://images.unsplash.com/photo-1602138038255-fd72c20ab750?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&h=400&fit=crop'
+    photo: '/subhash.JPEG'
   },
   {
     id: '2',
@@ -48,7 +48,7 @@ const familyData: FamilyMember[] = [
     generation: 0,
     position: 1,
     bio: 'A loving matriarch known for her warmth and traditional wisdom.',
-    photo: 'https://images.unsplash.com/photo-1622461828050-c47d16bd89ca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&h=400&fit=crop'
+    photo: '/laxmi.JPEG'
   },
   {
     id: '3',
@@ -60,7 +60,7 @@ const familyData: FamilyMember[] = [
     generation: 0,
     position: 2,
     bio: 'A distinguished gentleman remembered for his integrity and dedication.',
-    photo: 'https://images.unsplash.com/photo-1602138038255-fd72c20ab750?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&h=400&fit=crop'
+    photo: '/laxman.JPEG'
   },
   {
     id: '4',
@@ -71,7 +71,7 @@ const familyData: FamilyMember[] = [
     generation: 0,
     position: 3,
     bio: 'A graceful woman who brought joy and stability to the family.',
-    photo: 'https://images.unsplash.com/photo-1622461828050-c47d16bd89ca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&h=400&fit=crop'
+    photo: '/urmila.JPEG'
   },
   // Generation 1 - Parents
   {
@@ -84,7 +84,7 @@ const familyData: FamilyMember[] = [
     position: 0,
     parents: ['1', '2'],
     bio: 'An accomplished professional and devoted family man who bridges tradition with modernity.',
-    photo: 'https://images.unsplash.com/photo-1664101606938-e664f5852fac?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&h=400&fit=crop'
+    photo: '/ravi.JPEG'
   },
   {
     id: '6',
@@ -96,7 +96,7 @@ const familyData: FamilyMember[] = [
     position: 1,
     parents: ['3', '4'],
     bio: 'A nurturing presence who brings creativity and compassion to every aspect of life.',
-    photo: 'https://images.unsplash.com/photo-1749189516333-168cfd97de0b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&h=400&fit=crop'
+    photo: '/bharathi.JPEG'
   },
   // Generation 2 - Children
   {
@@ -109,7 +109,7 @@ const familyData: FamilyMember[] = [
     position: 0,
     parents: ['5', '6'],
     bio: 'A bright young individual pursuing dreams while honoring family heritage.',
-    photo: 'https://images.unsplash.com/photo-1648577739099-f1e18f8563f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&h=400&fit=crop'
+    photo: '/shashank.jpg'
   },
   {
     id: '8',
@@ -121,7 +121,7 @@ const familyData: FamilyMember[] = [
     position: 1,
     parents: ['5', '6'],
     bio: 'A talented and creative individual with a passion for making a difference.',
-    photo: 'https://images.unsplash.com/photo-1761125050322-bbfc155571bd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=400&h=400&fit=crop'
+    photo: '/shivani.jpg'
   }
 ];
 

@@ -38,25 +38,30 @@ export function ImageWithFallback({ src, alt, className, style, width, height, .
     )
   }
 
-  // Use Next.js Image for remote images (if width/height provided or if it's in a container with fill)
-  if ((imgSrc.startsWith('http://') || imgSrc.startsWith('https://')) && (width || height || className?.includes('fill'))) {
-    // For images with explicit dimensions
-    if (width && height) {
-      return (
-        <Image
-          src={imgSrc}
-          alt={alt || ''}
-          width={width}
-          height={height}
-          className={className}
-          style={style}
-          onError={handleError}
-          unoptimized
-          {...rest}
-        />
-      )
-    }
-    // For fill images (when parent has position: relative)
+  // Use Next.js Image for both local and remote images when dimensions are provided or fill is used
+  const isRemoteImage = imgSrc.startsWith('http://') || imgSrc.startsWith('https://')
+  const isLocalImage = imgSrc.startsWith('/')
+  const useFill = !width || !height || className?.includes('fill') || (!isRemoteImage && isLocalImage)
+
+  // For images with explicit dimensions and no fill
+  if (width && height && !useFill) {
+    return (
+      <Image
+        src={imgSrc}
+        alt={alt || ''}
+        width={width}
+        height={height}
+        className={className}
+        style={style}
+        onError={handleError}
+        unoptimized={isRemoteImage}
+        {...rest}
+      />
+    )
+  }
+
+  // For fill images (when parent has position: relative) - works for both local and remote
+  if (useFill) {
     return (
       <Image
         src={imgSrc}
@@ -65,13 +70,13 @@ export function ImageWithFallback({ src, alt, className, style, width, height, .
         className={className}
         style={style}
         onError={handleError}
-        unoptimized
+        unoptimized={isRemoteImage}
         {...rest}
       />
     )
   }
 
-  // Fallback to regular img for data URIs or when dimensions aren't available
+  // Fallback to regular img for data URIs
   return (
     <img
       src={imgSrc}
