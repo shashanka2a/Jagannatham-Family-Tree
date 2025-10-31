@@ -201,8 +201,8 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
 
   const CARD_WIDTH = isMobile ? 160 : 220;
   const CARD_HEIGHT = isMobile ? 220 : 280;
-  const HORIZONTAL_GAP = isMobile ? 40 : 80;
-  const VERTICAL_GAP = isMobile ? 100 : 160;
+  const HORIZONTAL_GAP = isMobile ? 60 : 120;
+  const VERTICAL_GAP = isMobile ? 140 : 200;
 
   const getCardPosition = (member: FamilyMember): { x: number; y: number } => {
     const gen = member.generation;
@@ -253,11 +253,11 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
               y: CARD_HEIGHT + VERTICAL_GAP
             };
           } else {
-            // Multiple siblings, arrange horizontally with more spacing
-            const branchSpacing = CARD_WIDTH + HORIZONTAL_GAP * 1.5;
+            // Multiple siblings, arrange horizontally with increased spacing to prevent overlap
+            const branchSpacing = CARD_WIDTH + HORIZONTAL_GAP * 2;
             const totalWidth = (siblingCount - 1) * branchSpacing;
-            // Shift siblings more to the right
-            const startX = parentsMidX - totalWidth / 2 - CARD_WIDTH / 2 + HORIZONTAL_GAP * 0.5;
+            // Center siblings properly without shifting
+            const startX = parentsMidX - totalWidth / 2 - CARD_WIDTH / 2;
             return {
               x: startX + siblingIndex * branchSpacing,
               y: CARD_HEIGHT + VERTICAL_GAP
@@ -299,11 +299,11 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
               y: (CARD_HEIGHT + VERTICAL_GAP) * 2
             };
           } else {
-            // Increase spacing between children for clear branch visualization and shift right
-            const branchSpacing = CARD_WIDTH + HORIZONTAL_GAP * 2.5;
+            // Increase spacing between children for clear branch visualization
+            const branchSpacing = CARD_WIDTH + HORIZONTAL_GAP * 3;
             const totalWidth = (siblingCount - 1) * branchSpacing;
-            // Shift children more to the right to prevent overlap
-            const startX = parentsMidX - totalWidth / 2 - CARD_WIDTH / 2 + HORIZONTAL_GAP;
+            // Center children properly without overlap
+            const startX = parentsMidX - totalWidth / 2 - CARD_WIDTH / 2;
             return {
               x: startX + childIndex * branchSpacing,
               y: (CARD_HEIGHT + VERTICAL_GAP) * 2
@@ -316,13 +316,16 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
   };
 
   const generations = [0, 1, 2];
-  // Update container width to accommodate Raghu in generation 1 and shifted children
-  const containerWidth = Math.max(CARD_WIDTH * 4 + HORIZONTAL_GAP * 5, CARD_WIDTH * 6 + HORIZONTAL_GAP * 8);
-  const containerHeight = (CARD_HEIGHT + VERTICAL_GAP) * 3;
+  // Increase container dimensions to accommodate proper spacing
+  const containerWidth = Math.max(
+    CARD_WIDTH * 4 + HORIZONTAL_GAP * 6, 
+    CARD_WIDTH * 7 + HORIZONTAL_GAP * 10
+  );
+  const containerHeight = (CARD_HEIGHT + VERTICAL_GAP) * 3 + VERTICAL_GAP;
 
   return (
-    <div className="w-full overflow-x-auto pb-12 px-4 md:px-0">
-      <div className="relative mx-auto pt-16" style={{ width: `${containerWidth}px`, height: `${containerHeight}px`, minWidth: isMobile ? `${containerWidth}px` : '1200px' }}>
+    <div className="w-full overflow-x-auto pb-12 px-4 md:px-6">
+      <div className="relative mx-auto pt-16" style={{ width: `${containerWidth}px`, height: `${containerHeight}px`, minWidth: isMobile ? `${containerWidth}px` : '1400px' }}>
         {/* SVG for connection lines */}
         <svg 
           className="absolute inset-0 pointer-events-none z-0" 
@@ -412,7 +415,7 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
                             x1={midX}
                             y1={y}
                             x2={midX}
-                            y2={y + 80}
+                            y2={y + (VERTICAL_GAP * 0.5)}
                             stroke={darkMode ? (isHighlighted ? '#a3b18a' : '#374151') : (isHighlighted ? '#a3b18a' : '#d0d5dd')}
                             strokeWidth={isHighlighted ? 3 : 2}
                             initial={{ pathLength: 0, opacity: 0 }}
@@ -445,7 +448,7 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
                   const parent1Pos = getCardPosition(parent1);
                   const parent2Pos = getCardPosition(parent2);
                   const parentMidX = (parent1Pos.x + parent2Pos.x + CARD_WIDTH) / 2;
-                  const parentY = parent1Pos.y + CARD_HEIGHT / 2 + 80;
+                  const parentY = parent1Pos.y + CARD_HEIGHT / 2 + (VERTICAL_GAP * 0.4);
                   
                   const isHighlighted = isInHoveredLineage(member.id);
 
@@ -461,7 +464,7 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
                     const siblingIndex = siblings.findIndex(s => s.id === member.id);
                     
                     // Create a horizontal branching point
-                    const branchY = parentY + 40;
+                    const branchY = parentY + (VERTICAL_GAP * 0.25);
                     
                     return (
                       <g key={`child-${member.id}`}>
@@ -529,7 +532,7 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
                     
                     if (siblings.length > 1) {
                       // Multiple siblings - use branching like generation 2
-                      const branchY = parentY + 40;
+                      const branchY = parentY + (VERTICAL_GAP * 0.25);
                       
                       return (
                         <g key={`child-${member.id}`}>
@@ -617,8 +620,8 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
                 const positions = genMembers.map(m => getCardPosition(m));
                 const minX = Math.min(...positions.map(p => p.x));
                 const maxX = Math.max(...positions.map(p => p.x));
-                // Shift badge more to the right
-                const centerX = (minX + maxX) / 2 + CARD_WIDTH / 2 + (gen > 0 ? HORIZONTAL_GAP * 0.5 : 0);
+                // Center the badge above the cards in this generation
+                const centerX = (minX + maxX + CARD_WIDTH) / 2;
                 
                 return (
                   <motion.div
