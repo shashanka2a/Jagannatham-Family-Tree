@@ -228,7 +228,7 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
           const parent2Pos = getCardPosition(parent2);
           const parentsMidX = (parent1Pos.x + parent2Pos.x + CARD_WIDTH) / 2;
           
-          // Get siblings (same parents) and sort by birth year
+          // Get siblings (same parents) and sort by birth year (descending - younger first)
           const siblings = familyData
             .filter(m => 
               m.generation === gen && 
@@ -237,10 +237,10 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
               m.parents[1] === member.parents![1]
             )
             .sort((a, b) => {
-              // Sort by birth year if available
+              // Sort by birth year descending (younger siblings appear first/left)
               const yearA = parseInt(a.birth) || 0;
               const yearB = parseInt(b.birth) || 0;
-              return yearA - yearB;
+              return yearB - yearA;
             });
           
           const siblingIndex = siblings.findIndex(s => s.id === member.id);
