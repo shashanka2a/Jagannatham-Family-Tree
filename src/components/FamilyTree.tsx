@@ -639,7 +639,13 @@ export function FamilyTree({ darkMode, searchQuery, selectedMember, onSelectMemb
               {/* Generation Label */}
               {visibleGenerations.includes(gen) && (() => {
                 // Calculate center position based on actual cards in this generation
-                const genMembers = filteredData.filter(m => m.generation === gen);
+                let genMembers = filteredData.filter(m => m.generation === gen);
+                
+                // For generation 1 (Parents), only consider the parent couple (id 5 and 6)
+                if (gen === 1) {
+                  genMembers = genMembers.filter(m => m.id === '5' || m.id === '6');
+                }
+                
                 if (genMembers.length === 0) return null;
                 
                 const positions = genMembers.map(m => getCardPosition(m));

@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Heart, Users, Calendar, Phone, Mail, MapPin, GraduationCap, Briefcase, Sparkles, Droplet, Ruler, User, Linkedin, Instagram } from 'lucide-react';
+import { X, Heart, Users, Calendar, Phone, Mail, MapPin, GraduationCap, Briefcase, Sparkles, Droplet, Ruler, User, Linkedin, Instagram, ExternalLink, Copy } from 'lucide-react';
 import { Button } from './ui/button';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
@@ -215,6 +215,25 @@ const familyStories: { [key: string]: any } = {
 
 export function FamilyStoryPanel({ darkMode, selectedMember, onClose }: FamilyStoryPanelProps) {
   const story = selectedMember ? familyStories[selectedMember] : null;
+
+  const formatLinkDisplay = (url: string) => {
+    try {
+      const u = new URL(url);
+      const host = u.host.replace(/^www\./, '');
+      const path = u.pathname.replace(/\/$/, '');
+      return path && path !== '/' ? `${host}${path}` : host;
+    } catch {
+      return url.replace(/^https?:\/\//, '').replace(/^www\./, '');
+    }
+  };
+
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      // silently ignore copy failures
+    }
+  };
 
   return (
     <AnimatePresence>
@@ -651,16 +670,30 @@ export function FamilyStoryPanel({ darkMode, selectedMember, onClose }: FamilySt
                             <p className={`text-xs mb-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                               LinkedIn
                             </p>
-                            <a 
-                              href={story.contact.linkedin}
-                              target="_blank"
-                              rel="noreferrer"
-                              className={`text-sm font-semibold hover:text-[#a3b18a] transition-colors break-all ${
-                                darkMode ? 'text-white' : 'text-[#334155]'
-                              }`}
-                            >
-                              {story.contact.linkedin}
-                            </a>
+                            <div className="flex items-center gap-2">
+                              <a 
+                                href={story.contact.linkedin}
+                                target="_blank"
+                                rel="noreferrer"
+                                title={story.contact.linkedin}
+                                className={`group inline-flex items-center gap-2 max-w-full text-sm font-semibold hover:text-[#a3b18a] transition-colors ${
+                                  darkMode ? 'text-white' : 'text-[#334155]'
+                                }`}
+                              >
+                                <span className="truncate">{formatLinkDisplay(story.contact.linkedin)}</span>
+                                <ExternalLink className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100" />
+                              </a>
+                              <button
+                                type="button"
+                                onClick={() => copyToClipboard(story.contact.linkedin)}
+                                className={`p-1.5 rounded-md border transition-colors ${
+                                  darkMode ? 'border-gray-800 hover:bg-gray-800' : 'border-gray-200 hover:bg-gray-100'
+                                }`}
+                                aria-label="Copy LinkedIn URL"
+                              >
+                                <Copy className="w-3.5 h-3.5 opacity-70" />
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -677,16 +710,30 @@ export function FamilyStoryPanel({ darkMode, selectedMember, onClose }: FamilySt
                             <p className={`text-xs mb-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                               Instagram
                             </p>
-                            <a 
-                              href={story.contact.instagram}
-                              target="_blank"
-                              rel="noreferrer"
-                              className={`text-sm font-semibold hover:text-[#a3b18a] transition-colors break-all ${
-                                darkMode ? 'text-white' : 'text-[#334155]'
-                              }`}
-                            >
-                              {story.contact.instagram}
-                            </a>
+                            <div className="flex items-center gap-2">
+                              <a 
+                                href={story.contact.instagram}
+                                target="_blank"
+                                rel="noreferrer"
+                                title={story.contact.instagram}
+                                className={`group inline-flex items-center gap-2 max-w-full text-sm font-semibold hover:text-[#a3b18a] transition-colors ${
+                                  darkMode ? 'text-white' : 'text-[#334155]'
+                                }`}
+                              >
+                                <span className="truncate">{formatLinkDisplay(story.contact.instagram)}</span>
+                                <ExternalLink className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100" />
+                              </a>
+                              <button
+                                type="button"
+                                onClick={() => copyToClipboard(story.contact.instagram)}
+                                className={`p-1.5 rounded-md border transition-colors ${
+                                  darkMode ? 'border-gray-800 hover:bg-gray-800' : 'border-gray-200 hover:bg-gray-100'
+                                }`}
+                                aria-label="Copy Instagram URL"
+                              >
+                                <Copy className="w-3.5 h-3.5 opacity-70" />
+                              </button>
+                            </div>
                           </div>
                         </div>
                       </div>
