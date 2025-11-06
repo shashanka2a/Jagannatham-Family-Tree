@@ -195,6 +195,8 @@ const familyStories: { [key: string]: any } = {
     photo: '/shivani.jpg',
     story: 'Software engineer turned AI/analytics practitioner; blends technology with business impact.',
     legacy: 'Builds intelligent, data-driven solutions',
+    nakshatram: 'Dhanista',
+    rasi: 'Kumbha',
     contact: {
       linkedin: 'https://www.linkedin.com/in/shivani-jagannatham/',
       instagram: 'https://www.instagram.com/_shiv.ilian_/'
