@@ -18,20 +18,31 @@ const familyStories: { [key: string]: any } = {
     role: 'Grandfather',
     birth: '?',
     death: '2008',
-    bio: 'A wise patriarch who laid the foundation for our family values. Known for his dedication to education and community service, he believed in the power of knowledge to transform lives.',
+    bio: 'Had a rough childhood, raised by his uncle (who owed money to his father). Worked and studied hard, traveling 30 km by walk and cycle to school. Completed degree with excellence. Joined as Jr. Officer in Immigration Department and retired as Gazetted Officer after 35 years of service.',
     photo: '/subhash.JPEG',
-    story: 'He spent his life working in education, touching countless lives through his teaching. His evenings were dedicated to community gatherings where he would share stories and wisdom with younger generations.',
-    legacy: 'Established a scholarship fund for underprivileged students'
+    story: 'Despite a challenging childhood being raised by his uncle, Subhash Chandar demonstrated extraordinary determination. He traveled 30 km daily by walk and cycle to attend school, showing incredible dedication to his education. His hard work paid off as he excelled in his studies and completed his degree. He began his career as a Junior Officer in the Immigration Department and through his commitment and excellence, rose to the rank of Gazetted Officer, serving for 35 years before retirement.',
+    legacy: 'Overcame adversity through education and dedicated 35 years of service to the nation',
+    education: [
+      { level: 'School', institution: 'Zilla Parishad School, Killa', year: '' },
+      { level: 'Degree', institution: 'Government College, Nizamabad', year: '' }
+    ],
+    career: [
+      { period: '35 years', role: 'Junior Officer to Gazetted Officer', company: 'Immigration Department', details: 'Started as Jr. Officer and retired as Gazetted Officer' }
+    ]
   },
   '2': {
     name: 'Jagannatham Soubagya Laxmi',
     fullName: 'Jagannatham Soubagya Laxmi',
     role: 'Grandmother',
     birth: '?',
-    bio: 'A loving matriarch known for her warmth and traditional wisdom.',
+    bio: 'Studied until 10th standard. Was a princess to her father who was a principal at school. Got married at 12 after schooling. Faced hardships at maternal house and raised two children with strength and resilience.',
     photo: '/laxmi.JPEG',
-    story: 'She was the heart of the family, known for bringing everyone together during festivals and celebrations. Her recipes and stories have been passed down through generations.',
-    legacy: 'Keeper of family traditions and cultural heritage'
+    story: 'Soubhagya Laxmi was cherished as a princess by her father, who served as a principal at school. She completed her education until 10th standard. After completing her schooling, she got married at the age of 12. Despite facing significant hardships at her maternal house, she demonstrated remarkable strength and resilience in raising two children, becoming the pillar of the family.',
+    legacy: 'Overcame hardships with grace and raised a loving family',
+    education: [
+      { level: 'Until 10th Standard', institution: '', year: '' }
+    ],
+    marriage: 'At age 12 (after schooling)'
   },
   '3': {
     name: 'Laxman Swamy Ekangi',

@@ -36,7 +36,7 @@ const familyData: FamilyMember[] = [
     death: '2008',
     generation: 0,
     position: 0,
-    bio: 'A wise patriarch who laid the foundation for our family values.',
+    bio: 'Had a rough childhood, raised by his uncle. Worked and studied hard, traveling 30 km by walk and cycle to school. Completed degree with excellence. Joined as Jr. Officer in Immigration Department and retired as Gazetted Officer after 35 years of service.',
     photo: '/subhash.JPEG'
   },
   {
@@ -47,7 +47,7 @@ const familyData: FamilyMember[] = [
     birth: '?',
     generation: 0,
     position: 1,
-    bio: 'A loving matriarch known for her warmth and traditional wisdom.',
+    bio: 'Studied until 10th standard. Was a princess to her father who was a principal at school. Got married at 12 after schooling. Faced hardships at maternal house and raised two children with strength and resilience.',
     photo: '/laxmi.JPEG'
   },
   {
