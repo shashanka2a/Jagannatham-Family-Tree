@@ -612,14 +612,14 @@ export function FamilyStoryPanel({ darkMode, selectedMember, onClose }: FamilySt
                   }`}>
                     {story.contact?.phone && (
                       <div className={`p-4 md:p-5 ${story.contact?.email || story.address || story.contact?.linkedin || story.contact?.instagram ? `border-b ${darkMode ? 'border-gray-800' : 'border-gray-200'}` : ''}`}>
-                        <div className="flex items-center gap-3">
-                          <div className={`w-9 h-9 rounded-lg shrink-0 border flex items-center justify-center ${
+                        <div className="flex items-start gap-3">
+                          <div className={`w-9 h-9 rounded-lg shrink-0 border flex items-center justify-center mt-0.5 ${
                             darkMode ? 'bg-[#a3b18a]/20 border-[#a3b18a]/30' : 'bg-[#a3b18a]/10 border-[#a3b18a]/20'
                           }`}>
                             <Phone className="w-4 h-4 text-[#a3b18a]" />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className={`text-xs mb-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                            <p className={`text-xs mb-1.5 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                               Phone
                             </p>
                             <a 
@@ -636,14 +636,14 @@ export function FamilyStoryPanel({ darkMode, selectedMember, onClose }: FamilySt
                     )}
                     {story.contact?.email && (
                       <div className={`p-4 md:p-5 ${story.address || story.contact?.linkedin || story.contact?.instagram ? `border-b ${darkMode ? 'border-gray-800' : 'border-gray-200'}` : ''}`}>
-                        <div className="flex items-center gap-3">
-                          <div className={`w-9 h-9 rounded-lg shrink-0 border flex items-center justify-center ${
+                        <div className="flex items-start gap-3">
+                          <div className={`w-9 h-9 rounded-lg shrink-0 border flex items-center justify-center mt-0.5 ${
                             darkMode ? 'bg-[#a3b18a]/20 border-[#a3b18a]/30' : 'bg-[#a3b18a]/10 border-[#a3b18a]/20'
                           }`}>
                             <Mail className="w-4 h-4 text-[#a3b18a]" />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className={`text-xs mb-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                            <p className={`text-xs mb-1.5 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                               Email
                             </p>
                             <a 
@@ -660,14 +660,14 @@ export function FamilyStoryPanel({ darkMode, selectedMember, onClose }: FamilySt
                     )}
                     {story.contact?.linkedin && (
                       <div className={`p-4 md:p-5 ${story.contact?.instagram || story.address ? `border-b ${darkMode ? 'border-gray-800' : 'border-gray-200'}` : ''}`}>
-                        <div className="flex items-center gap-3">
-                          <div className={`w-9 h-9 rounded-lg shrink-0 border flex items-center justify-center ${
+                        <div className="flex items-start gap-3">
+                          <div className={`w-9 h-9 rounded-lg shrink-0 border flex items-center justify-center mt-0.5 ${
                             darkMode ? 'bg-[#a3b18a]/20 border-[#a3b18a]/30' : 'bg-[#a3b18a]/10 border-[#a3b18a]/20'
                           }`}>
                             <Linkedin className="w-4 h-4 text-[#a3b18a]" />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className={`text-xs mb-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                            <p className={`text-xs mb-1.5 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                               LinkedIn
                             </p>
                             <div className="flex items-center gap-2">
@@ -700,14 +700,14 @@ export function FamilyStoryPanel({ darkMode, selectedMember, onClose }: FamilySt
                     )}
                     {story.contact?.instagram && (
                       <div className={`p-4 md:p-5 ${story.address ? `border-b ${darkMode ? 'border-gray-800' : 'border-gray-200'}` : ''}`}>
-                        <div className="flex items-center gap-3">
-                          <div className={`w-9 h-9 rounded-lg shrink-0 border flex items-center justify-center ${
+                        <div className="flex items-start gap-3">
+                          <div className={`w-9 h-9 rounded-lg shrink-0 border flex items-center justify-center mt-0.5 ${
                             darkMode ? 'bg-[#a3b18a]/20 border-[#a3b18a]/30' : 'bg-[#a3b18a]/10 border-[#a3b18a]/20'
                           }`}>
                             <Instagram className="w-4 h-4 text-[#a3b18a]" />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className={`text-xs mb-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                            <p className={`text-xs mb-1.5 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                               Instagram
                             </p>
                             <div className="flex items-center gap-2">
@@ -740,14 +740,14 @@ export function FamilyStoryPanel({ darkMode, selectedMember, onClose }: FamilySt
                     )}
                     {story.address && (
                       <div className="p-4 md:p-5">
-                        <div className="flex items-center gap-3">
-                          <div className={`w-9 h-9 rounded-lg shrink-0 border flex items-center justify-center ${
+                        <div className="flex items-start gap-3">
+                          <div className={`w-9 h-9 rounded-lg shrink-0 border flex items-center justify-center mt-0.5 ${
                             darkMode ? 'bg-[#a3b18a]/20 border-[#a3b18a]/30' : 'bg-[#a3b18a]/10 border-[#a3b18a]/20'
                           }`}>
                             <MapPin className="w-4 h-4 text-[#a3b18a]" />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <p className={`text-xs mb-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                            <p className={`text-xs mb-1.5 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                               Address
                             </p>
                             <p className={`text-sm leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
