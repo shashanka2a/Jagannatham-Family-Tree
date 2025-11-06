@@ -155,10 +155,14 @@ const familyStories: { [key: string]: any } = {
     fullName: 'Jagannatham Raghu Chander',
     role: 'Uncle',
     birth: '1972',
-    bio: 'A dedicated professional and loving brother who values family connections and heritage.',
+    bio: 'A photographer inspired by his brother Ravi, with 15 years of experience. Despite facing challenges in his marriage life, he is currently living happily in Pune.',
     photo: '/raghu.jpg',
-    story: 'The younger brother of Ravi Chander, Raghu has always been a pillar of support for the family. His commitment to maintaining family traditions while embracing new opportunities has made him a beloved uncle and role model.',
-    legacy: 'Strengthens family bonds across generations'
+    story: 'Inspired by his elder brother Ravi Chander, Raghu pursued photography and has built a successful career with 15 years of experience in the field. His journey has not been without challenges - he faced difficulties in his marriage life, but through resilience and determination, he has found happiness and is currently living a fulfilling life in Pune.',
+    legacy: 'Overcame personal challenges and built a successful photography career',
+    career: [
+      { period: '15 years', role: 'Photographer', company: '', details: 'Inspired by his brother Ravi Chander' }
+    ],
+    address: 'Pune'
   },
   '7': {
     name: 'Jagannatham Shashank',

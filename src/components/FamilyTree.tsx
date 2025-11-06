@@ -107,7 +107,7 @@ const familyData: FamilyMember[] = [
     generation: 1,
     position: 2,
     parents: ['1', '2'],
-    bio: 'A dedicated professional and loving brother who values family connections and heritage.',
+    bio: 'A photographer inspired by his brother Ravi, with 15 years of experience. Despite facing challenges in his marriage life, he is currently living happily in Pune.',
     photo: '/raghu.jpg'
   },
   // Generation 2 - Children
