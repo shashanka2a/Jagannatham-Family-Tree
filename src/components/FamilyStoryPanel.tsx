@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Heart, Users, Calendar } from 'lucide-react';
+import { X, Heart, Users, Calendar, Phone, Mail, MapPin, GraduationCap, Briefcase, Sparkles, Droplet, Ruler, User } from 'lucide-react';
 import { Button } from './ui/button';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
@@ -58,11 +58,36 @@ const familyStories: { [key: string]: any } = {
     name: 'Jagannatham Ravi Chander',
     fullName: 'Jagannatham Ravi Chander',
     role: 'Father',
-    birth: '1969',
+    birth: '8 April 1969',
+    death: null,
     bio: 'An accomplished professional and devoted family man who bridges tradition with modernity.',
     photo: '/ravi.JPEG',
-    story: 'He has successfully blended traditional values with modern thinking, creating a nurturing environment for the next generation while honoring the wisdom of ancestors.',
-    legacy: 'Modernized family business while preserving core values'
+    story: 'Born on 8 April 1969, Ravi Chander has successfully blended traditional values with modern thinking. His journey from education to business showcases dedication and entrepreneurial spirit. Starting with marketing roles at Atul Agency, he progressed to partnerships and eventually ownership of Good I\'ll Shop in 1994. Currently, he runs Vijetha Digital Studio, established in October 2009, continuing his legacy of innovation and service to the community. Married on 22 May 1998, he has built a loving family while maintaining strong connections to his roots.',
+    legacy: 'Modernized family business while preserving core values',
+    // Detailed information
+    nakshatram: 'Moola Padam',
+    rasi: 'Dhanushu',
+    height: '5.2',
+    color: 'White',
+    bloodGroup: 'B+',
+    education: [
+      { level: '1 to 10th', institution: 'Pochampad', year: '1984' },
+      { level: 'Intermediate M.P.C', institution: 'CSI College', year: '1986' },
+      { level: 'B.Com', institution: 'Evening College', year: '1986-1988 (Discontinued)' }
+    ],
+    career: [
+      { period: '1986-1988', role: 'Marketing', company: 'Atul Agency', details: 'Products: Maggie Noodles, Nescafe Coffee, Sunrise Coffee, Savitha Photo Studio' },
+      { period: '1988-1992', role: 'Job', company: 'Partnership', details: '1990: 1/3rd Share, 1992: 50/50 Partnership' },
+      { period: '1994', role: 'Owner', company: 'Good I\'ll Shop', details: 'Investment: ₹2,00,000' },
+      { period: '2009 - Present', role: 'Owner', company: 'Vijetha Digital Studio', details: 'Established October 2009' }
+    ],
+    marriage: '22 May 1998',
+    contact: {
+      phone: '9848765051',
+      email: 'jrc8823@gmail.com',
+      website: null
+    },
+    address: 'Vijetha Digital Studio, Shop No.14, Womens College Road, Kanteshwer, Nizamabad, 503002'
   },
   '6': {
     name: 'Jagannatham Bharati',
@@ -193,7 +218,7 @@ export function FamilyStoryPanel({ darkMode, selectedMember, onClose }: FamilySt
                 </p>
               </motion.div>
 
-              {/* Bio Section */}
+              {/* Story Section - Converted from About */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -202,36 +227,325 @@ export function FamilyStoryPanel({ darkMode, selectedMember, onClose }: FamilySt
                   darkMode ? 'bg-[#0e1116]' : 'bg-gray-50'
                 }`}
               >
-                <div className="flex items-center gap-2 mb-3">
-                  <Heart className="w-5 h-5 text-[#a3b18a]" />
-                  <h4 className={darkMode ? 'text-white' : 'text-[#334155]'}>
-                    About
+                <div className="flex items-center gap-2 mb-4">
+                  <Users className="w-5 h-5 text-[#a3b18a]" />
+                  <h4 className={`font-semibold ${darkMode ? 'text-white' : 'text-[#334155]'}`}>
+                    Story
                   </h4>
                 </div>
                 <p className={`text-sm leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                  {story.bio}
+                  {story.story || story.bio}
                 </p>
               </motion.div>
 
-              {/* Story Section */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
-                className={`rounded-xl p-6 mb-6 ${
-                  darkMode ? 'bg-[#0e1116]' : 'bg-gray-50'
-                }`}
-              >
-                <div className="flex items-center gap-2 mb-3">
-                  <Users className="w-5 h-5 text-[#f6c177]" />
-                  <h4 className={darkMode ? 'text-white' : 'text-[#334155]'}>
-                    Their Story
+              {/* Personal Details Cards */}
+              {(story.nakshatram || story.rasi || story.height || story.bloodGroup || story.birth) && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="mb-6"
+                >
+                  <h4 className={`text-sm font-semibold mb-4 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                    Personal Details
                   </h4>
-                </div>
-                <p className={`text-sm leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
-                  {story.story}
-                </p>
-              </motion.div>
+                  <div className="grid grid-cols-2 gap-3">
+                    {story.birth && (
+                      <div className={`rounded-lg p-4 border transition-all hover:shadow-md ${
+                        darkMode ? 'bg-[#0e1116] border-gray-800' : 'bg-white border-gray-200'
+                      }`}>
+                        <div className="flex items-center gap-2 mb-2">
+                          <Calendar className="w-4 h-4 text-[#a3b18a]" />
+                          <span className={`text-xs font-medium ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                            Date of Birth
+                          </span>
+                        </div>
+                        <p className={`text-sm font-semibold ${darkMode ? 'text-white' : 'text-[#334155]'}`}>
+                          {story.birth}
+                        </p>
+                      </div>
+                    )}
+                    {story.nakshatram && (
+                      <div className={`rounded-lg p-4 border transition-all hover:shadow-md ${
+                        darkMode ? 'bg-[#0e1116] border-gray-800' : 'bg-white border-gray-200'
+                      }`}>
+                        <div className="flex items-center gap-2 mb-2">
+                          <Sparkles className="w-4 h-4 text-[#f6c177]" />
+                          <span className={`text-xs font-medium ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                            Nakshatram
+                          </span>
+                        </div>
+                        <p className={`text-sm font-semibold ${darkMode ? 'text-white' : 'text-[#334155]'}`}>
+                          {story.nakshatram}
+                        </p>
+                      </div>
+                    )}
+                    {story.rasi && (
+                      <div className={`rounded-lg p-4 border transition-all hover:shadow-md ${
+                        darkMode ? 'bg-[#0e1116] border-gray-800' : 'bg-white border-gray-200'
+                      }`}>
+                        <div className="flex items-center gap-2 mb-2">
+                          <Sparkles className="w-4 h-4 text-[#f6c177]" />
+                          <span className={`text-xs font-medium ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                            Rasi
+                          </span>
+                        </div>
+                        <p className={`text-sm font-semibold ${darkMode ? 'text-white' : 'text-[#334155]'}`}>
+                          {story.rasi}
+                        </p>
+                      </div>
+                    )}
+                    {story.height && (
+                      <div className={`rounded-lg p-4 border transition-all hover:shadow-md ${
+                        darkMode ? 'bg-[#0e1116] border-gray-800' : 'bg-white border-gray-200'
+                      }`}>
+                        <div className="flex items-center gap-2 mb-2">
+                          <Ruler className="w-4 h-4 text-[#a3b18a]" />
+                          <span className={`text-xs font-medium ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                            Height
+                          </span>
+                        </div>
+                        <p className={`text-sm font-semibold ${darkMode ? 'text-white' : 'text-[#334155]'}`}>
+                          {story.height} ft
+                        </p>
+                      </div>
+                    )}
+                    {story.bloodGroup && (
+                      <div className={`rounded-lg p-4 border transition-all hover:shadow-md ${
+                        darkMode ? 'bg-[#0e1116] border-gray-800' : 'bg-white border-gray-200'
+                      }`}>
+                        <div className="flex items-center gap-2 mb-2">
+                          <Droplet className="w-4 h-4 text-red-500" />
+                          <span className={`text-xs font-medium ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                            Blood Group
+                          </span>
+                        </div>
+                        <p className={`text-sm font-semibold ${darkMode ? 'text-white' : 'text-[#334155]'}`}>
+                          {story.bloodGroup}
+                        </p>
+                      </div>
+                    )}
+                    {story.color && (
+                      <div className={`rounded-lg p-4 border transition-all hover:shadow-md ${
+                        darkMode ? 'bg-[#0e1116] border-gray-800' : 'bg-white border-gray-200'
+                      }`}>
+                        <div className="flex items-center gap-2 mb-2">
+                          <User className="w-4 h-4 text-[#a3b18a]" />
+                          <span className={`text-xs font-medium ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                            Complexion
+                          </span>
+                        </div>
+                        <p className={`text-sm font-semibold ${darkMode ? 'text-white' : 'text-[#334155]'}`}>
+                          {story.color}
+                        </p>
+                      </div>
+                    )}
+                    {story.marriage && (
+                      <div className={`rounded-lg p-4 border transition-all hover:shadow-md ${
+                        darkMode ? 'bg-[#0e1116] border-gray-800' : 'bg-white border-gray-200'
+                      }`}>
+                        <div className="flex items-center gap-2 mb-2">
+                          <Heart className="w-4 h-4 text-pink-500" />
+                          <span className={`text-xs font-medium ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                            Marriage
+                          </span>
+                        </div>
+                        <p className={`text-sm font-semibold ${darkMode ? 'text-white' : 'text-[#334155]'}`}>
+                          {story.marriage}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Education Cards */}
+              {story.education && story.education.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                  className="mb-6"
+                >
+                  <div className="flex items-center gap-2 mb-4">
+                    <GraduationCap className="w-5 h-5 text-[#a3b18a]" />
+                    <h4 className={`font-semibold ${darkMode ? 'text-white' : 'text-[#334155]'}`}>
+                      Education
+                    </h4>
+                  </div>
+                  <div className="space-y-3">
+                    {story.education.map((edu: any, index: number) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.6 + index * 0.1 }}
+                        className={`rounded-lg p-4 border transition-all hover:shadow-md ${
+                          darkMode ? 'bg-[#0e1116] border-gray-800' : 'bg-white border-gray-200'
+                        }`}
+                      >
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <p className={`text-sm font-semibold mb-1 ${darkMode ? 'text-white' : 'text-[#334155]'}`}>
+                              {edu.level}
+                            </p>
+                            <p className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                              {edu.institution}
+                            </p>
+                          </div>
+                          <span className={`text-xs px-2 py-1 rounded-full ${
+                            darkMode ? 'bg-[#a3b18a]/20 text-[#a3b18a]' : 'bg-[#a3b18a]/10 text-[#a3b18a]'
+                          }`}>
+                            {edu.year}
+                          </span>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Career Timeline */}
+              {story.career && story.career.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.7 }}
+                  className="mb-6"
+                >
+                  <div className="flex items-center gap-2 mb-4">
+                    <Briefcase className="w-5 h-5 text-[#f6c177]" />
+                    <h4 className={`font-semibold ${darkMode ? 'text-white' : 'text-[#334155]'}`}>
+                      Career
+                    </h4>
+                  </div>
+                  <div className="space-y-3">
+                    {story.career.map((job: any, index: number) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.7 + index * 0.1 }}
+                        className={`rounded-lg p-4 border-l-4 transition-all hover:shadow-md ${
+                          darkMode 
+                            ? 'bg-[#0e1116] border-[#a3b18a] border-gray-800' 
+                            : 'bg-white border-[#a3b18a] border-gray-200'
+                        }`}
+                      >
+                        <div className="flex justify-between items-start mb-2">
+                          <div>
+                            <p className={`text-sm font-semibold ${darkMode ? 'text-white' : 'text-[#334155]'}`}>
+                              {job.role}
+                            </p>
+                            <p className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                              {job.company}
+                            </p>
+                          </div>
+                          <span className={`text-xs px-2 py-1 rounded-full whitespace-nowrap ${
+                            darkMode ? 'bg-[#f6c177]/20 text-[#f6c177]' : 'bg-[#f6c177]/10 text-[#f6c177]'
+                          }`}>
+                            {job.period}
+                          </span>
+                        </div>
+                        {job.details && (
+                          <p className={`text-xs mt-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                            {job.details}
+                          </p>
+                        )}
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Contact Information */}
+              {(story.contact || story.address) && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.8 }}
+                  className="mb-6"
+                >
+                  <h4 className={`text-sm font-semibold mb-4 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                    Contact & Address
+                  </h4>
+                  <div className="space-y-3">
+                    {story.contact?.phone && (
+                      <div className={`rounded-lg p-4 border transition-all hover:shadow-md ${
+                        darkMode ? 'bg-[#0e1116] border-gray-800' : 'bg-white border-gray-200'
+                      }`}>
+                        <div className="flex items-center gap-3">
+                          <div className={`p-2 rounded-lg ${
+                            darkMode ? 'bg-[#a3b18a]/20' : 'bg-[#a3b18a]/10'
+                          }`}>
+                            <Phone className="w-4 h-4 text-[#a3b18a]" />
+                          </div>
+                          <div>
+                            <p className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                              Phone
+                            </p>
+                            <a 
+                              href={`tel:${story.contact.phone}`}
+                              className={`text-sm font-semibold hover:text-[#a3b18a] transition-colors ${
+                                darkMode ? 'text-white' : 'text-[#334155]'
+                              }`}
+                            >
+                              {story.contact.phone}
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    {story.contact?.email && (
+                      <div className={`rounded-lg p-4 border transition-all hover:shadow-md ${
+                        darkMode ? 'bg-[#0e1116] border-gray-800' : 'bg-white border-gray-200'
+                      }`}>
+                        <div className="flex items-center gap-3">
+                          <div className={`p-2 rounded-lg ${
+                            darkMode ? 'bg-[#a3b18a]/20' : 'bg-[#a3b18a]/10'
+                          }`}>
+                            <Mail className="w-4 h-4 text-[#a3b18a]" />
+                          </div>
+                          <div>
+                            <p className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                              Email
+                            </p>
+                            <a 
+                              href={`mailto:${story.contact.email}`}
+                              className={`text-sm font-semibold hover:text-[#a3b18a] transition-colors ${
+                                darkMode ? 'text-white' : 'text-[#334155]'
+                              }`}
+                            >
+                              {story.contact.email}
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    {story.address && (
+                      <div className={`rounded-lg p-4 border transition-all hover:shadow-md ${
+                        darkMode ? 'bg-[#0e1116] border-gray-800' : 'bg-white border-gray-200'
+                      }`}>
+                        <div className="flex items-start gap-3">
+                          <div className={`p-2 rounded-lg ${
+                            darkMode ? 'bg-[#a3b18a]/20' : 'bg-[#a3b18a]/10'
+                          }`}>
+                            <MapPin className="w-4 h-4 text-[#a3b18a]" />
+                          </div>
+                          <div>
+                            <p className={`text-xs mb-1 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                              Address
+                            </p>
+                            <p className={`text-sm ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                              {story.address}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </motion.div>
+              )}
 
               {/* Legacy Section */}
               {story.legacy && (
