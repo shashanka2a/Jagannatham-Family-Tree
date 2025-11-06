@@ -62,7 +62,7 @@ const familyStories: { [key: string]: any } = {
     death: null,
     bio: 'An accomplished professional and devoted family man who bridges tradition with modernity.',
     photo: '/ravi.JPEG',
-    story: 'Born on 8 April 1969, Ravi Chander has successfully blended traditional values with modern thinking. His journey from education to business showcases dedication and entrepreneurial spirit. Starting with marketing roles at Atul Agency, he progressed to partnerships and eventually ownership of Good I\'ll Shop in 1994. Currently, he runs Vijetha Digital Studio, established in October 2009, continuing his legacy of innovation and service to the community. Married on 22 May 1998, he has built a loving family while maintaining strong connections to his roots.',
+    story: 'Born on 8 April 1969, Ravi Chander started his career in marketing at Atul Agency. He owned Savitha Photo Studio in 1994, one of the first photo studios in Nizamabad. Currently, he runs Vijetha Digital Studio, established in October 2009. Married on 22 May 1998.',
     legacy: 'Modernized family business while preserving core values',
     // Detailed information
     nakshatram: 'Moola Padam',
@@ -76,9 +76,9 @@ const familyStories: { [key: string]: any } = {
       { level: 'B.Com', institution: 'Evening College', year: '1986-1988 (Discontinued)' }
     ],
     career: [
-      { period: '1986-1988', role: 'Marketing', company: 'Atul Agency', details: 'Products: Maggie Noodles, Nescafe Coffee, Sunrise Coffee, Savitha Photo Studio' },
-      { period: '1988-1992', role: 'Job', company: 'Partnership', details: '1990: 1/3rd Share, 1992: 50/50 Partnership' },
-      { period: '1994', role: 'Owner', company: 'Good I\'ll Shop', details: 'Investment: ₹2,00,000' },
+      { period: '1986-1988', role: 'Marketing', company: 'Atul Agency', details: 'Products: Maggie Noodles, Nescafe Coffee, Sunrise Coffee' },
+      { period: '1988-1992', role: 'Job', company: 'Savitha Photo Studio', details: '1990: 1/3rd Share, 1992: 50/50 Partnership' },
+      { period: '1994', role: 'Owner', company: 'Savitha Photo Studio', details: 'Investment: ₹2,00,000' },
       { period: '2009 - Present', role: 'Owner', company: 'Vijetha Digital Studio', details: 'Established October 2009' }
     ],
     marriage: '22 May 1998',
@@ -471,17 +471,17 @@ export function FamilyStoryPanel({ darkMode, selectedMember, onClose }: FamilySt
                   </h4>
                   <div className="space-y-3">
                     {story.contact?.phone && (
-                      <div className={`rounded-lg p-4 border transition-all hover:shadow-md ${
+                      <div className={`rounded-lg p-5 border transition-all hover:shadow-md ${
                         darkMode ? 'bg-[#0e1116] border-gray-800' : 'bg-white border-gray-200'
                       }`}>
-                        <div className="flex items-center gap-3">
-                          <div className={`p-2 rounded-lg ${
+                        <div className="flex items-center gap-4">
+                          <div className={`p-2.5 rounded-lg shrink-0 ${
                             darkMode ? 'bg-[#a3b18a]/20' : 'bg-[#a3b18a]/10'
                           }`}>
                             <Phone className="w-4 h-4 text-[#a3b18a]" />
                           </div>
-                          <div>
-                            <p className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                          <div className="flex-1">
+                            <p className={`text-xs mb-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                               Phone
                             </p>
                             <a 
@@ -497,17 +497,17 @@ export function FamilyStoryPanel({ darkMode, selectedMember, onClose }: FamilySt
                       </div>
                     )}
                     {story.contact?.email && (
-                      <div className={`rounded-lg p-4 border transition-all hover:shadow-md ${
+                      <div className={`rounded-lg p-5 border transition-all hover:shadow-md ${
                         darkMode ? 'bg-[#0e1116] border-gray-800' : 'bg-white border-gray-200'
                       }`}>
-                        <div className="flex items-center gap-3">
-                          <div className={`p-2 rounded-lg ${
+                        <div className="flex items-center gap-4">
+                          <div className={`p-2.5 rounded-lg shrink-0 ${
                             darkMode ? 'bg-[#a3b18a]/20' : 'bg-[#a3b18a]/10'
                           }`}>
                             <Mail className="w-4 h-4 text-[#a3b18a]" />
                           </div>
-                          <div>
-                            <p className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                          <div className="flex-1">
+                            <p className={`text-xs mb-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                               Email
                             </p>
                             <a 
@@ -523,20 +523,20 @@ export function FamilyStoryPanel({ darkMode, selectedMember, onClose }: FamilySt
                       </div>
                     )}
                     {story.address && (
-                      <div className={`rounded-lg p-4 border transition-all hover:shadow-md ${
+                      <div className={`rounded-lg p-5 border transition-all hover:shadow-md ${
                         darkMode ? 'bg-[#0e1116] border-gray-800' : 'bg-white border-gray-200'
                       }`}>
-                        <div className="flex items-start gap-3">
-                          <div className={`p-2 rounded-lg ${
+                        <div className="flex items-start gap-4">
+                          <div className={`p-2.5 rounded-lg shrink-0 ${
                             darkMode ? 'bg-[#a3b18a]/20' : 'bg-[#a3b18a]/10'
                           }`}>
                             <MapPin className="w-4 h-4 text-[#a3b18a]" />
                           </div>
-                          <div>
-                            <p className={`text-xs mb-1 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                          <div className="flex-1">
+                            <p className={`text-xs mb-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                               Address
                             </p>
-                            <p className={`text-sm ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
+                            <p className={`text-sm leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-700'}`}>
                               {story.address}
                             </p>
                           </div>
