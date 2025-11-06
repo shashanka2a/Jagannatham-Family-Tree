@@ -469,24 +469,24 @@ export function FamilyStoryPanel({ darkMode, selectedMember, onClose }: FamilySt
                   <h4 className={`text-sm font-semibold mb-4 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                     Contact & Address
                   </h4>
-                  <div className="space-y-3">
+                  <div className={`rounded-lg border overflow-hidden ${
+                    darkMode ? 'bg-[#0e1116] border-gray-800' : 'bg-white border-gray-200'
+                  }`}>
                     {story.contact?.phone && (
-                      <div className={`rounded-lg p-5 border transition-all hover:shadow-md ${
-                        darkMode ? 'bg-[#0e1116] border-gray-800' : 'bg-white border-gray-200'
-                      }`}>
+                      <div className={`p-5 ${story.contact?.email || story.address ? `border-b ${darkMode ? 'border-gray-800' : 'border-gray-200'}` : ''}`}>
                         <div className="flex items-center gap-4">
-                          <div className={`p-2.5 rounded-lg shrink-0 ${
-                            darkMode ? 'bg-[#a3b18a]/20' : 'bg-[#a3b18a]/10'
+                          <div className={`p-2.5 rounded-lg shrink-0 border ${
+                            darkMode ? 'bg-[#a3b18a]/20 border-[#a3b18a]/30' : 'bg-[#a3b18a]/10 border-[#a3b18a]/20'
                           }`}>
                             <Phone className="w-4 h-4 text-[#a3b18a]" />
                           </div>
-                          <div className="flex-1">
+                          <div className="flex-1 min-w-0">
                             <p className={`text-xs mb-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                               Phone
                             </p>
                             <a 
                               href={`tel:${story.contact.phone}`}
-                              className={`text-sm font-semibold hover:text-[#a3b18a] transition-colors ${
+                              className={`text-sm font-semibold hover:text-[#a3b18a] transition-colors break-all ${
                                 darkMode ? 'text-white' : 'text-[#334155]'
                               }`}
                             >
@@ -497,22 +497,20 @@ export function FamilyStoryPanel({ darkMode, selectedMember, onClose }: FamilySt
                       </div>
                     )}
                     {story.contact?.email && (
-                      <div className={`rounded-lg p-5 border transition-all hover:shadow-md ${
-                        darkMode ? 'bg-[#0e1116] border-gray-800' : 'bg-white border-gray-200'
-                      }`}>
+                      <div className={`p-5 ${story.address ? `border-b ${darkMode ? 'border-gray-800' : 'border-gray-200'}` : ''}`}>
                         <div className="flex items-center gap-4">
-                          <div className={`p-2.5 rounded-lg shrink-0 ${
-                            darkMode ? 'bg-[#a3b18a]/20' : 'bg-[#a3b18a]/10'
+                          <div className={`p-2.5 rounded-lg shrink-0 border ${
+                            darkMode ? 'bg-[#a3b18a]/20 border-[#a3b18a]/30' : 'bg-[#a3b18a]/10 border-[#a3b18a]/20'
                           }`}>
                             <Mail className="w-4 h-4 text-[#a3b18a]" />
                           </div>
-                          <div className="flex-1">
+                          <div className="flex-1 min-w-0">
                             <p className={`text-xs mb-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                               Email
                             </p>
                             <a 
                               href={`mailto:${story.contact.email}`}
-                              className={`text-sm font-semibold hover:text-[#a3b18a] transition-colors ${
+                              className={`text-sm font-semibold hover:text-[#a3b18a] transition-colors break-all ${
                                 darkMode ? 'text-white' : 'text-[#334155]'
                               }`}
                             >
@@ -523,16 +521,14 @@ export function FamilyStoryPanel({ darkMode, selectedMember, onClose }: FamilySt
                       </div>
                     )}
                     {story.address && (
-                      <div className={`rounded-lg p-5 border transition-all hover:shadow-md ${
-                        darkMode ? 'bg-[#0e1116] border-gray-800' : 'bg-white border-gray-200'
-                      }`}>
-                        <div className="flex items-start gap-4">
-                          <div className={`p-2.5 rounded-lg shrink-0 ${
-                            darkMode ? 'bg-[#a3b18a]/20' : 'bg-[#a3b18a]/10'
+                      <div className="p-5">
+                        <div className="flex gap-4">
+                          <div className={`p-2.5 rounded-lg shrink-0 border mt-0.5 ${
+                            darkMode ? 'bg-[#a3b18a]/20 border-[#a3b18a]/30' : 'bg-[#a3b18a]/10 border-[#a3b18a]/20'
                           }`}>
                             <MapPin className="w-4 h-4 text-[#a3b18a]" />
                           </div>
-                          <div className="flex-1">
+                          <div className="flex-1 min-w-0">
                             <p className={`text-xs mb-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                               Address
                             </p>

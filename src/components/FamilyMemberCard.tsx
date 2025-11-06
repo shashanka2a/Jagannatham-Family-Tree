@@ -96,11 +96,11 @@ export function FamilyMemberCard({
         >
           {member.photo ? (
             <div className="relative w-full h-full">
-              <ImageWithFallback
-                src={member.photo}
-                alt={member.fullName}
+            <ImageWithFallback
+              src={member.photo}
+              alt={member.fullName}
                 className="object-cover"
-              />
+            />
             </div>
           ) : (
             <div className={`w-full h-full flex items-center justify-center text-3xl ${
