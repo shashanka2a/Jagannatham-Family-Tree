@@ -55,11 +55,11 @@ const familyData: FamilyMember[] = [
     name: 'Laxman Swamy Ekangi',
     fullName: 'Laxman Swamy Ekangi',
     role: 'Grandfather',
-    birth: '?',
+    birth: '1930',
     death: '1978',
     generation: 0,
     position: 2,
-    bio: 'A distinguished gentleman remembered for his integrity and dedication.',
+    bio: "Brownish complexion; native of Pune; height 5'3\"; studied till 4th standard. Worked as an auto driver, then a motor mechanic, and later joined RJC as a foreman. Married in 1967.",
     photo: '/laxman.JPEG'
   },
   {
@@ -67,10 +67,10 @@ const familyData: FamilyMember[] = [
     name: 'Urmila Laxman',
     fullName: 'Urmila Laxman',
     role: 'Grandmother',
-    birth: '?',
+    birth: '2-5-1945',
     generation: 0,
     position: 3,
-    bio: 'A graceful woman who brought joy and stability to the family.',
+    bio: "Fair complexion; height 4'6\". Studied at Fatima High School (Warangal) for 1st–2nd and St. John High School (Solapur) for 2nd–10th. Worked as a teacher for 30 years at Dwarkanagar Primary School (private). Zodiac: Aries. Married in 1967.",
     photo: '/urmila.JPEG'
   },
   // Generation 1 - Parents

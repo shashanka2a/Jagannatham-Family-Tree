@@ -37,22 +37,44 @@ const familyStories: { [key: string]: any } = {
     name: 'Laxman Swamy Ekangi',
     fullName: 'Laxman Swamy Ekangi',
     role: 'Grandfather',
-    birth: '?',
+    birth: '1930',
     death: '1978',
-    bio: 'A distinguished gentleman remembered for his integrity and dedication.',
+    bio: "Brownish complexion; native of Pune; height 5'3\"; studied till 4th standard. Worked as an auto driver, then a motor mechanic, and later joined RJC as a foreman. Married in 1967.",
     photo: '/laxman.JPEG',
-    story: 'A man of principles who served his community with distinction. His commitment to honesty and hard work set an example for all who knew him.',
-    legacy: 'Built the family home that still stands today'
+    story: 'Born in 1930 and native to Pune, Laxman Swamy worked first as an auto driver, later as a motor mechanic, and after a few years joined RJC as a foreman. His honesty, hard work, and dedication made him a respected figure among peers and family. He married in 1967.',
+    legacy: 'Built the family home that still stands today',
+    color: 'Brownish',
+    height: '5.3',
+    marriage: '1967',
+    education: [
+      { level: '4th Standard', institution: '', year: '' }
+    ],
+    career: [
+      { period: '', role: 'Auto Driver', company: '', details: '' },
+      { period: '', role: 'Motor Mechanic', company: '', details: '' },
+      { period: '', role: 'Foreman', company: 'RJC', details: '' }
+    ]
   },
   '4': {
     name: 'Urmila Laxman',
     fullName: 'Urmila Laxman',
     role: 'Grandmother',
-    birth: '?',
-    bio: 'A graceful woman who brought joy and stability to the family.',
+    birth: '2-5-1945',
+    bio: "Fair complexion; height 4'6\". Studied at Fatima High School (Warangal) for 1st–2nd and St. John High School (Solapur) for 2nd–10th. Worked as a teacher for 30 years at Dwarkanagar Primary School (private). Zodiac: Aries. Married in 1967.",
     photo: '/urmila.JPEG',
-    story: 'Known for her artistic talents and gentle nature, she created a warm home filled with love and creativity. Her handcrafted items are still treasured family heirlooms.',
-    legacy: 'Created beautiful textiles that remain family treasures'
+    story: 'Born on 2 May 1945, she studied at Fatima High School (Warangal) for 1st–2nd and St. John High School (Solapur) for 2nd–10th. She served as a teacher for 30 years at Dwarkanagar Primary School (private). Known for her kindness and dedication to children. Married in 1967.',
+    legacy: 'Dedicated 30 years to educating children with care and patience',
+    color: 'Fair',
+    height: '4.5',
+    rasi: 'Aries',
+    marriage: '1967',
+    education: [
+      { level: '1 to 2', institution: 'Fatima High School (Warangal)', year: '' },
+      { level: '2 to 10th', institution: 'St. John High School (Solapur)', year: '' }
+    ],
+    career: [
+      { period: '30 years', role: 'Teacher', company: 'Dwarkanagar Primary School (Private)', details: '' }
+    ]
   },
   '5': {
     name: 'Jagannatham Ravi Chander',
