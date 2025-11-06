@@ -611,9 +611,9 @@ export function FamilyStoryPanel({ darkMode, selectedMember, onClose }: FamilySt
                     darkMode ? 'bg-[#0e1116] border-gray-800' : 'bg-white border-gray-200'
                   }`}>
                     {story.contact?.phone && (
-                      <div className={`p-5 ${story.contact?.email || story.address ? `border-b ${darkMode ? 'border-gray-800' : 'border-gray-200'}` : ''}`}>
-                        <div className="flex items-start gap-3">
-                          <div className={`p-2.5 rounded-lg shrink-0 border ${
+                      <div className={`p-4 md:p-5 ${story.contact?.email || story.address || story.contact?.linkedin || story.contact?.instagram ? `border-b ${darkMode ? 'border-gray-800' : 'border-gray-200'}` : ''}`}>
+                        <div className="flex items-center gap-3">
+                          <div className={`w-9 h-9 rounded-lg shrink-0 border flex items-center justify-center ${
                             darkMode ? 'bg-[#a3b18a]/20 border-[#a3b18a]/30' : 'bg-[#a3b18a]/10 border-[#a3b18a]/20'
                           }`}>
                             <Phone className="w-4 h-4 text-[#a3b18a]" />
@@ -635,9 +635,9 @@ export function FamilyStoryPanel({ darkMode, selectedMember, onClose }: FamilySt
                       </div>
                     )}
                     {story.contact?.email && (
-                      <div className={`p-5 ${story.address ? `border-b ${darkMode ? 'border-gray-800' : 'border-gray-200'}` : ''}`}>
-                        <div className="flex items-start gap-3">
-                          <div className={`p-2.5 rounded-lg shrink-0 border ${
+                      <div className={`p-4 md:p-5 ${story.address || story.contact?.linkedin || story.contact?.instagram ? `border-b ${darkMode ? 'border-gray-800' : 'border-gray-200'}` : ''}`}>
+                        <div className="flex items-center gap-3">
+                          <div className={`w-9 h-9 rounded-lg shrink-0 border flex items-center justify-center ${
                             darkMode ? 'bg-[#a3b18a]/20 border-[#a3b18a]/30' : 'bg-[#a3b18a]/10 border-[#a3b18a]/20'
                           }`}>
                             <Mail className="w-4 h-4 text-[#a3b18a]" />
@@ -659,9 +659,9 @@ export function FamilyStoryPanel({ darkMode, selectedMember, onClose }: FamilySt
                       </div>
                     )}
                     {story.contact?.linkedin && (
-                      <div className={`p-5 ${story.contact?.instagram || story.address ? `border-b ${darkMode ? 'border-gray-800' : 'border-gray-200'}` : ''}`}>
-                        <div className="flex items-start gap-3">
-                          <div className={`p-2.5 rounded-lg shrink-0 border ${
+                      <div className={`p-4 md:p-5 ${story.contact?.instagram || story.address ? `border-b ${darkMode ? 'border-gray-800' : 'border-gray-200'}` : ''}`}>
+                        <div className="flex items-center gap-3">
+                          <div className={`w-9 h-9 rounded-lg shrink-0 border flex items-center justify-center ${
                             darkMode ? 'bg-[#a3b18a]/20 border-[#a3b18a]/30' : 'bg-[#a3b18a]/10 border-[#a3b18a]/20'
                           }`}>
                             <Linkedin className="w-4 h-4 text-[#a3b18a]" />
@@ -699,9 +699,9 @@ export function FamilyStoryPanel({ darkMode, selectedMember, onClose }: FamilySt
                       </div>
                     )}
                     {story.contact?.instagram && (
-                      <div className={`p-5 ${story.address ? `border-b ${darkMode ? 'border-gray-800' : 'border-gray-200'}` : ''}`}>
-                        <div className="flex items-start gap-3">
-                          <div className={`p-2.5 rounded-lg shrink-0 border ${
+                      <div className={`p-4 md:p-5 ${story.address ? `border-b ${darkMode ? 'border-gray-800' : 'border-gray-200'}` : ''}`}>
+                        <div className="flex items-center gap-3">
+                          <div className={`w-9 h-9 rounded-lg shrink-0 border flex items-center justify-center ${
                             darkMode ? 'bg-[#a3b18a]/20 border-[#a3b18a]/30' : 'bg-[#a3b18a]/10 border-[#a3b18a]/20'
                           }`}>
                             <Instagram className="w-4 h-4 text-[#a3b18a]" />
@@ -739,9 +739,9 @@ export function FamilyStoryPanel({ darkMode, selectedMember, onClose }: FamilySt
                       </div>
                     )}
                     {story.address && (
-                      <div className="p-5">
-                        <div className="flex items-start gap-3">
-                          <div className={`p-2.5 rounded-lg shrink-0 border ${
+                      <div className="p-4 md:p-5">
+                        <div className="flex items-center gap-3">
+                          <div className={`w-9 h-9 rounded-lg shrink-0 border flex items-center justify-center ${
                             darkMode ? 'bg-[#a3b18a]/20 border-[#a3b18a]/30' : 'bg-[#a3b18a]/10 border-[#a3b18a]/20'
                           }`}>
                             <MapPin className="w-4 h-4 text-[#a3b18a]" />
