@@ -18,16 +18,16 @@ const familyStories: { [key: string]: any } = {
     role: 'Grandfather',
     birth: '?',
     death: '2008',
-    bio: 'Had a rough childhood, raised by his uncle (who owed money to his father). Worked and studied hard, traveling 30 km by walk and cycle to school. Completed degree with excellence. Joined as Jr. Officer in Immigration Department and retired as Gazetted Officer after 35 years of service.',
+    bio: 'Had a rough childhood, raised by his uncle (who owed money to his father). Worked and studied hard, traveling 30 km by walk and cycle to school. Completed degree with excellence. Joined as Jr. Officer in Irrigation Department and retired as Gazetted Officer after 35 years of service.',
     photo: '/subhash.JPEG',
-    story: 'Despite a challenging childhood being raised by his uncle, Subhash Chandar demonstrated extraordinary determination. He traveled 30 km daily by walk and cycle to attend school, showing incredible dedication to his education. His hard work paid off as he excelled in his studies and completed his degree. He began his career as a Junior Officer in the Immigration Department and through his commitment and excellence, rose to the rank of Gazetted Officer, serving for 35 years before retirement.',
+    story: 'Despite a challenging childhood being raised by his uncle, Subhash Chandar demonstrated extraordinary determination. He traveled 30 km daily by walk and cycle to attend school, showing incredible dedication to his education. His hard work paid off as he excelled in his studies and completed his degree. He began his career as a Junior Officer in the Irrigation Department and through his commitment and excellence, rose to the rank of Gazetted Officer, serving for 35 years before retirement.',
     legacy: 'Overcame adversity through education and dedicated 35 years of service to the nation',
     education: [
       { level: 'School', institution: 'Zilla Parishad School, Killa', year: '' },
       { level: 'Degree', institution: 'Government College, Nizamabad', year: '' }
     ],
     career: [
-      { period: '35 years', role: 'Junior Officer to Gazetted Officer', company: 'Immigration Department', details: 'Started as Jr. Officer and retired as Gazetted Officer' }
+      { period: '35 years', role: 'Junior Officer to Gazetted Officer', company: 'Irrigation Department', details: 'Started as Jr. Officer and retired as Gazetted Officer' }
     ]
   },
   '2': {
@@ -562,7 +562,7 @@ export function FamilyStoryPanel({ darkMode, selectedMember, onClose }: FamilySt
                   }`}>
                     {story.contact?.phone && (
                       <div className={`p-5 ${story.contact?.email || story.address ? `border-b ${darkMode ? 'border-gray-800' : 'border-gray-200'}` : ''}`}>
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-start gap-3">
                           <div className={`p-2.5 rounded-lg shrink-0 border ${
                             darkMode ? 'bg-[#a3b18a]/20 border-[#a3b18a]/30' : 'bg-[#a3b18a]/10 border-[#a3b18a]/20'
                           }`}>
@@ -586,7 +586,7 @@ export function FamilyStoryPanel({ darkMode, selectedMember, onClose }: FamilySt
                     )}
                     {story.contact?.email && (
                       <div className={`p-5 ${story.address ? `border-b ${darkMode ? 'border-gray-800' : 'border-gray-200'}` : ''}`}>
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-start gap-3">
                           <div className={`p-2.5 rounded-lg shrink-0 border ${
                             darkMode ? 'bg-[#a3b18a]/20 border-[#a3b18a]/30' : 'bg-[#a3b18a]/10 border-[#a3b18a]/20'
                           }`}>
@@ -610,8 +610,8 @@ export function FamilyStoryPanel({ darkMode, selectedMember, onClose }: FamilySt
                     )}
                     {story.address && (
                       <div className="p-5">
-                        <div className="flex gap-4">
-                          <div className={`p-2.5 rounded-lg shrink-0 border mt-0.5 ${
+                        <div className="flex items-start gap-3">
+                          <div className={`p-2.5 rounded-lg shrink-0 border ${
                             darkMode ? 'bg-[#a3b18a]/20 border-[#a3b18a]/30' : 'bg-[#a3b18a]/10 border-[#a3b18a]/20'
                           }`}>
                             <MapPin className="w-4 h-4 text-[#a3b18a]" />
