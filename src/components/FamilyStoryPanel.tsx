@@ -93,11 +93,28 @@ const familyStories: { [key: string]: any } = {
     name: 'Jagannatham Bharati',
     fullName: 'Jagannatham Bharati',
     role: 'Mother',
-    birth: '1976',
+    birth: '21 August 1976',
     bio: 'A nurturing presence who brings creativity and compassion to every aspect of life.',
     photo: '/bharathi.JPEG',
-    story: 'With a passion for the arts and education, she has inspired many through her work and dedication. Her home is a gathering place where culture and learning flourish.',
-    legacy: 'Advocates for education and women\'s empowerment'
+    story: 'A dedicated educator with 16 years of experience as a Primary Teacher at Presidency High School. Her commitment to education extends beyond the classroom, with qualifications in B.Ed and M.Com. Known for her warmth and dedication to nurturing young minds.',
+    legacy: 'Advocates for education and women\'s empowerment',
+    // Detailed information
+    teluguName: 'ముగసినిర్',
+    rasi: 'Mithuna (Gemini)',
+    height: null,
+    color: 'Brownish',
+    bloodGroup: 'A+',
+    birthTime: '4:08',
+    education: [
+      { level: '1 to 7', institution: 'Dwaraka School', year: '' },
+      { level: '7 to 10', institution: 'Tagore\'s Home', year: '' },
+      { level: 'Intermediate to Degree', institution: 'Gujrathi College', year: 'Stream: CEC → B.Com' },
+      { level: 'B.Ed', institution: 'Indira Gandhi National Open University', year: '05-07-2010' },
+      { level: 'M.Com', institution: 'Osmania University', year: '23-10-2004' }
+    ],
+    career: [
+      { period: '1 June 2005 – 30 September 2021', role: 'Primary Teacher', company: 'Presidency High School', details: '16 years of experience' }
+    ]
   },
   '9': {
     name: 'Jagannatham Raghu Chander',
@@ -239,7 +256,7 @@ export function FamilyStoryPanel({ darkMode, selectedMember, onClose }: FamilySt
               </motion.div>
 
               {/* Personal Details Cards */}
-              {(story.nakshatram || story.rasi || story.height || story.bloodGroup || story.birth) && (
+              {(story.nakshatram || story.rasi || story.height || story.bloodGroup || story.birth || story.teluguName || story.birthTime || story.color) && (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -355,6 +372,36 @@ export function FamilyStoryPanel({ darkMode, selectedMember, onClose }: FamilySt
                         </p>
                       </div>
                     )}
+                    {story.teluguName && (
+                      <div className={`rounded-lg p-4 border transition-all hover:shadow-md ${
+                        darkMode ? 'bg-[#0e1116] border-gray-800' : 'bg-white border-gray-200'
+                      }`}>
+                        <div className="flex items-center gap-2 mb-2">
+                          <User className="w-4 h-4 text-[#a3b18a]" />
+                          <span className={`text-xs font-medium ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                            Name (Telugu)
+                          </span>
+                        </div>
+                        <p className={`text-sm font-semibold ${darkMode ? 'text-white' : 'text-[#334155]'}`}>
+                          {story.teluguName}
+                        </p>
+                      </div>
+                    )}
+                    {story.birthTime && (
+                      <div className={`rounded-lg p-4 border transition-all hover:shadow-md ${
+                        darkMode ? 'bg-[#0e1116] border-gray-800' : 'bg-white border-gray-200'
+                      }`}>
+                        <div className="flex items-center gap-2 mb-2">
+                          <Calendar className="w-4 h-4 text-[#a3b18a]" />
+                          <span className={`text-xs font-medium ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                            Birth Time
+                          </span>
+                        </div>
+                        <p className={`text-sm font-semibold ${darkMode ? 'text-white' : 'text-[#334155]'}`}>
+                          {story.birthTime}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </motion.div>
               )}
@@ -385,19 +432,26 @@ export function FamilyStoryPanel({ darkMode, selectedMember, onClose }: FamilySt
                         }`}
                       >
                         <div className="flex justify-between items-start">
-                          <div>
+                          <div className="flex-1">
                             <p className={`text-sm font-semibold mb-1 ${darkMode ? 'text-white' : 'text-[#334155]'}`}>
                               {edu.level}
                             </p>
                             <p className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
                               {edu.institution}
                             </p>
+                            {edu.year && (edu.year.includes(':') || edu.year.includes('→')) && (
+                              <p className={`text-xs mt-1 ${darkMode ? 'text-gray-500' : 'text-gray-600'}`}>
+                                {edu.year}
+                              </p>
+                            )}
                           </div>
-                          <span className={`text-xs px-2 py-1 rounded-full ${
-                            darkMode ? 'bg-[#a3b18a]/20 text-[#a3b18a]' : 'bg-[#a3b18a]/10 text-[#a3b18a]'
-                          }`}>
-                            {edu.year}
-                          </span>
+                          {edu.year && !edu.year.includes(':') && !edu.year.includes('→') && (
+                            <span className={`text-xs px-2 py-1 rounded-full whitespace-nowrap ml-2 shrink-0 ${
+                              darkMode ? 'bg-[#a3b18a]/20 text-[#a3b18a]' : 'bg-[#a3b18a]/10 text-[#a3b18a]'
+                            }`}>
+                              {edu.year}
+                            </span>
+                          )}
                         </div>
                       </motion.div>
                     ))}
