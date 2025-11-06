@@ -99,6 +99,7 @@ const familyStories: { [key: string]: any } = {
     story: 'A dedicated educator with 16 years of experience as a Primary Teacher at Presidency High School. Her commitment to education extends beyond the classroom, with qualifications in B.Ed and M.Com. Known for her warmth and dedication to nurturing young minds.',
     legacy: 'Advocates for education and women\'s empowerment',
     // Detailed information
+    nakshatram: 'ముగసినిర్',
     teluguName: 'ముగసినిర్',
     rasi: 'Mithuna (Gemini)',
     height: null,
