@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Heart, Users, Calendar, Phone, Mail, MapPin, GraduationCap, Briefcase, Sparkles, Droplet, Ruler, User } from 'lucide-react';
+import { X, Heart, Users, Calendar, Phone, Mail, MapPin, GraduationCap, Briefcase, Sparkles, Droplet, Ruler, User, Linkedin, Instagram } from 'lucide-react';
 import { Button } from './ui/button';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
@@ -169,20 +169,45 @@ const familyStories: { [key: string]: any } = {
     fullName: 'Jagannatham Shashank',
     role: 'Son',
     birth: '2000',
-    bio: 'A bright young individual pursuing dreams while honoring family heritage.',
+    bio: 'Full-stack builder focused on real-world products and mentoring peers.',
     photo: '/shashank.jpg',
-    story: 'The newest generation carries forward the family legacy with fresh perspectives and energy, while staying rooted in the values taught by previous generations.',
-    legacy: 'Building the future while honoring the past'
+    story: 'Engineer and student founder building practical products; blends engineering with entrepreneurship.',
+    legacy: 'Builds products and mentors student developers',
+    nakshatram: 'Pushyami',
+    rasi: 'Karkataka (Cancer)',
+    contact: {
+      linkedin: 'https://www.linkedin.com/in/shashank-jagannatham/',
+      instagram: 'https://www.instagram.com/shashank.bio/'
+    },
+    education: [
+      { level: 'School', institution: 'Presidency High School', year: '2002–2015' },
+      { level: 'Intermediate (Science/Maths)', institution: 'Nano Junior College', year: '2015–2017' },
+      { level: 'B.Tech (CSE)', institution: 'BVRIT Hyderabad', year: '2017–2021' },
+      { level: 'MS (CS)', institution: 'University of Florida', year: '2023–2025' }
+    ]
   },
   '8': {
     name: 'Jagannatham Shivani',
     fullName: 'Jagannatham Shivani',
     role: 'Daughter',
     birth: '2002',
-    bio: 'A talented and creative individual with a passion for making a difference.',
+    bio: 'Technologist focused on AI and analytics for data-driven products.',
     photo: '/shivani.jpg',
-    story: 'Bringing innovation and compassion to everything she does, she represents the bright future of the family. Her artistic talents and drive for positive change inspire those around her.',
-    legacy: 'Pioneering new paths while cherishing family roots'
+    story: 'Software engineer turned AI/analytics practitioner; blends technology with business impact.',
+    legacy: 'Builds intelligent, data-driven solutions',
+    contact: {
+      linkedin: 'https://www.linkedin.com/in/shivani-jagannatham/',
+      instagram: 'https://www.instagram.com/_shiv.ilian_/'
+    },
+    education: [
+      { level: 'School', institution: 'Presidency High School', year: '2004–2017' },
+      { level: 'Intermediate (Science)', institution: 'Sri Chaitanya Junior College', year: '2017–2019' },
+      { level: 'B.Tech (IT)', institution: 'BVRIT Hyderabad', year: '2019–2023' },
+      { level: 'MS (AI & Business Analytics)', institution: 'University of South Florida, Muma College of Business', year: '2025–2026' }
+    ],
+    career: [
+      { period: '', role: 'Software Engineer', company: 'Verizon', details: 'Built microservices with Spring Boot/Java; frontend with React; automation and security improvements' }
+    ]
   }
 };
 
@@ -607,6 +632,58 @@ export function FamilyStoryPanel({ darkMode, selectedMember, onClose }: FamilySt
                               }`}
                             >
                               {story.contact.email}
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    {story.contact?.linkedin && (
+                      <div className={`p-5 ${story.contact?.instagram || story.address ? `border-b ${darkMode ? 'border-gray-800' : 'border-gray-200'}` : ''}`}>
+                        <div className="flex items-start gap-3">
+                          <div className={`p-2.5 rounded-lg shrink-0 border ${
+                            darkMode ? 'bg-[#a3b18a]/20 border-[#a3b18a]/30' : 'bg-[#a3b18a]/10 border-[#a3b18a]/20'
+                          }`}>
+                            <Linkedin className="w-4 h-4 text-[#a3b18a]" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className={`text-xs mb-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                              LinkedIn
+                            </p>
+                            <a 
+                              href={story.contact.linkedin}
+                              target="_blank"
+                              rel="noreferrer"
+                              className={`text-sm font-semibold hover:text-[#a3b18a] transition-colors break-all ${
+                                darkMode ? 'text-white' : 'text-[#334155]'
+                              }`}
+                            >
+                              {story.contact.linkedin}
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    {story.contact?.instagram && (
+                      <div className={`p-5 ${story.address ? `border-b ${darkMode ? 'border-gray-800' : 'border-gray-200'}` : ''}`}>
+                        <div className="flex items-start gap-3">
+                          <div className={`p-2.5 rounded-lg shrink-0 border ${
+                            darkMode ? 'bg-[#a3b18a]/20 border-[#a3b18a]/30' : 'bg-[#a3b18a]/10 border-[#a3b18a]/20'
+                          }`}>
+                            <Instagram className="w-4 h-4 text-[#a3b18a]" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className={`text-xs mb-2 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                              Instagram
+                            </p>
+                            <a 
+                              href={story.contact.instagram}
+                              target="_blank"
+                              rel="noreferrer"
+                              className={`text-sm font-semibold hover:text-[#a3b18a] transition-colors break-all ${
+                                darkMode ? 'text-white' : 'text-[#334155]'
+                              }`}
+                            >
+                              {story.contact.instagram}
                             </a>
                           </div>
                         </div>
